@@ -1,6 +1,6 @@
 package com.example.ischedule_backend.Model;
 
-public enum Role {
+public enum UserRole {
     ADMIN,
     ASSISTANT,
     STUDENT
