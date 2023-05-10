@@ -10,7 +10,7 @@ CREATE TABLE users
     username VARCHAR(255) NOT NULL,
     email    VARCHAR(255) NOT NULL,
     password VARCHAR(255) NOT NULL,
-    role     ENUM('STUDENT', 'ADMIN', 'ASSISTANT') NOT NULL DEFAULT 'STUDENT',
+    role     ENUM('STUDENT', 'ADMIN', 'ASSISTANT') NOT NULL,
     PRIMARY KEY (id),
     UNIQUE KEY (email)
 );

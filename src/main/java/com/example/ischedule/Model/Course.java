@@ -1,4 +1,4 @@
-package com.example.ischedule_backend.Model;
+package com.example.ischedule.Model;
 
 import jakarta.persistence.*;
 

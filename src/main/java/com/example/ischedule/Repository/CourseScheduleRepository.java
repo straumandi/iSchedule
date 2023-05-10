@@ -1,7 +1,7 @@
-package com.example.ischedule_backend.Repository;
+package com.example.ischedule.Repository;
 
-import com.example.ischedule_backend.Model.CourseSchedule;
-import com.example.ischedule_backend.Model.DayOfWeek;
+import com.example.ischedule.Model.CourseSchedule;
+import com.example.ischedule.Model.DayOfWeek;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

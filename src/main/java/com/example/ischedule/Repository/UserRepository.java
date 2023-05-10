@@ -1,7 +1,7 @@
-package com.example.ischedule_backend.Repository;
+package com.example.ischedule.Repository;
 
-import com.example.ischedule_backend.Model.User;
-import com.example.ischedule_backend.Model.UserRole;
+import com.example.ischedule.Model.User;
+import com.example.ischedule.Model.UserRole;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
@@ -25,7 +25,7 @@ public interface UserRepository extends JpaRepository<User, Integer> {
      * Find all users by course id
      */
     @Query("SELECT u FROM User u JOIN CourseSchedule cs JOIN cs.course c WHERE c.id = :courseId")
-    List<User> findByCourseId(@Param("courseId") Long courseId);
+    List<User> findByCourseId(@Param("courseId") int courseId);
 
     /*
      * Find all users

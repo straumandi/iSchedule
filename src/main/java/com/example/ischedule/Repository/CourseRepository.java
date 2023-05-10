@@ -1,6 +1,6 @@
-package com.example.ischedule_backend.Repository;
+package com.example.ischedule.Repository;
 
-import com.example.ischedule_backend.Model.Course;
+import com.example.ischedule.Model.Course;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

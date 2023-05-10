@@ -1,4 +1,4 @@
-package com.example.ischedule_backend;
+package com.example.ischedule;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
