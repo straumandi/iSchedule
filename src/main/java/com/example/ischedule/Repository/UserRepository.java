@@ -17,18 +17,23 @@ public interface UserRepository extends JpaRepository<User, Integer> {
     User findByEmail(String email);
 
     /*
+     * Find a user by their email address.
+     */
+    User findByUsername(String username);
+
+    /*
      * Find all users with a given role.
      */
     List<User> findByRole(UserRole role);
 
     /*
-     * Find all users by course id
+     * Find all users by course id.
      */
     @Query("SELECT u FROM User u JOIN CourseSchedule cs JOIN cs.course c WHERE c.id = :courseId")
     List<User> findByCourseId(@Param("courseId") int courseId);
 
     /*
-     * Find all users
+     * Find all users.
      */
     List<User> findAll();
 }

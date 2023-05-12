@@ -1,7 +1,7 @@
 # iSchedule
 
-iSchedule is a scheduling application that allows users to manage their courses, rooms, and schedules. It provides a
-user-friendly interface built with Java Swing for creating and organizing course schedules, making it easy to keep track
+iSchedule is a full-stack scheduling application that allows users to manage their courses, rooms, and schedules. It provides a
+user-friendly interface built with Thymeleaf for creating and organizing course schedules, making it easy to keep track
 of class timings, room assignments, and student enrollments.
 
 ## Features
@@ -15,8 +15,8 @@ of class timings, room assignments, and student enrollments.
 
 ## Technologies Used
 
-- Java
-- Thymeleaf
+- Java 17
+- Thymeleaf (with Bootstrap)
 - Hibernate and Spring Boot (with MySQL)
 
 ## Installation

@@ -5,18 +5,25 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 
 @Controller
 public class LoginController {
 
+    @GetMapping("/")
+    public String showWelcomePage() {
+        return "welcome";
+    }
+
+
     @GetMapping("/login")
     public String showLoginPage() {
-        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-        if (auth.isAuthenticated()) {
-            // User is already authenticated, redirect to home page or any other page
-            return "redirect:/home";
-        }
         return "login";
+    }
+
+    @PostMapping("/home")
+    public String handleSuccessfulLogin() {
+        return "redirect:/home";
     }
 
     @GetMapping("/home")
