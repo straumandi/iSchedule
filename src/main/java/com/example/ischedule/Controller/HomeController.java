@@ -12,9 +12,11 @@ import org.springframework.web.bind.annotation.GetMapping;
 
 @Controller
 public class HomeController {
+    private final UserService userService; // UserService to retrieve the authenticated user
 
-    @Autowired
-    private UserService userService; // UserService to retrieve the authenticated user
+    public HomeController(UserService userService) {
+        this.userService = userService;
+    }
 
     @GetMapping("/home")
     public String home(Model model) {
@@ -47,6 +49,5 @@ public class HomeController {
 
         return "home";
     }
-
 }
 
