@@ -10,11 +10,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 @Controller
 public class LoginController {
 
-    @GetMapping("/")
-    public String showWelcomePage() {
-        return "welcome";
-    }
-
+    //TODO: if user logged in link to home when /login
 
     @GetMapping("/login")
     public String showLoginPage() {
@@ -25,8 +21,8 @@ public class LoginController {
     public String handleSuccessfulLogin() {
         return "redirect:/home";
     }
-
-    @GetMapping("/home")
+    
+    /* @GetMapping("/home")
     public String showHomePage(Model model) {
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         String username = auth.getName();
@@ -34,7 +30,7 @@ public class LoginController {
         // and pass it to the model to display on the home page
         model.addAttribute("username", username);
         return "home";
-    }
+    } */
 
 }
 

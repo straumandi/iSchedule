@@ -11,6 +11,8 @@ public interface UserService {
 
     User getUserById(int id);
 
+    CustomUserDetails getCurrentUser();
+
     User saveUser(User user);
 
     void deleteUser(int id);

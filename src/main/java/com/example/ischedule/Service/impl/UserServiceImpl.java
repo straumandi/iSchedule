@@ -3,7 +3,10 @@ package com.example.ischedule.Service.impl;
 import com.example.ischedule.Model.User;
 import com.example.ischedule.Model.UserRole;
 import com.example.ischedule.Repository.UserRepository;
+import com.example.ischedule.Service.CustomUserDetails;
 import com.example.ischedule.Service.UserService;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -27,6 +30,14 @@ public class UserServiceImpl implements UserService {
     public User getUserById(int id) {
         Optional<User> result = userRepository.findById(id);
         return result.orElse(null);
+    }
+
+    @Override
+    public CustomUserDetails getCurrentUser() {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        String username = authentication.getName();
+        User user = userRepository.findByUsername(username); // Modify this line based on your UserRepository implementation
+        return new CustomUserDetails(user);
     }
 
     @Override

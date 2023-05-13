@@ -46,16 +46,19 @@ public class WebSecurityConfig extends WebSecurityConfiguration {
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http
                 .authorizeHttpRequests((requests) -> requests
-                        .requestMatchers("/home", "/admin").permitAll()
+                        .requestMatchers("/", "/welcome").permitAll()
+                        .requestMatchers("/home").hasAnyRole("STUDENT", "ADMIN", "ASSISTANT")
+                        .requestMatchers("/admin").hasRole("ADMIN")
                         .anyRequest().authenticated()
                 )
                 .formLogin((form) -> form
                         .loginPage("/login")
-                        .successForwardUrl("/home")
+                        .defaultSuccessUrl("/home", true)
                         .permitAll()
                 )
                 .logout(LogoutConfigurer::permitAll);
 
         return http.build();
     }
+
 }
