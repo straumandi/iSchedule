@@ -3,6 +3,7 @@ package com.example.ischedule.Controller;
 import com.example.ischedule.Model.User;
 import com.example.ischedule.Model.UserRole;
 import com.example.ischedule.Service.UserService;
+import org.hibernate.exception.ConstraintViolationException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
@@ -31,16 +32,24 @@ public class SignUpController {
             @RequestParam("username") String username,
             @RequestParam("password") String password,
             Model model) {
-        //TODO: Validate the form data and perform any necessary checks
 
-        String encodedPassword = passwordEncoder.encode(password);
-        com.example.ischedule.Model.User newUser = new User(username, email, encodedPassword, UserRole.STUDENT);
-        userService.saveUser(newUser);
+        try {
+            // TODO: Validate the form data and perform any necessary checks
 
-        //TODO: Authenticate the newly registered user
+            String encodedPassword = passwordEncoder.encode(password);
+            com.example.ischedule.Model.User newUser = new User(username, email, encodedPassword, UserRole.STUDENT);
+            userService.saveUser(newUser);
 
-        // Redirect the user to the home page after successful sign-up
-        return "redirect:/home";
+            // Redirect the user to the home page after successful sign-up
+            return "redirect:/home";
+        } catch (ConstraintViolationException ex) {
+            String errorMessage = "Username or email already exists.";
+            model.addAttribute("error", errorMessage);
+            return "signup";
+        }
+
+        //TODO: Login the newly registered user and redirect:/home
+
     }
 }
 

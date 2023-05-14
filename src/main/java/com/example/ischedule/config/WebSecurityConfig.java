@@ -10,12 +10,10 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfiguration;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityCustomizer;
-import org.springframework.security.config.annotation.web.configurers.LogoutConfigurer;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.AuthenticationFailureHandler;
-import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 
 @Configuration
 @EnableWebSecurity
@@ -62,7 +60,6 @@ public class WebSecurityConfig extends WebSecurityConfiguration {
                 .csrf()
                 .disable()
                 .authenticationProvider(authenticationProvider())
-
                 .authorizeHttpRequests((requests) -> requests
                         .requestMatchers("/", "/welcome", "/signup").permitAll()
                         .requestMatchers("/home").hasAnyRole("STUDENT", "ADMIN", "ASSISTANT")
