@@ -9,6 +9,9 @@
 <body>
 <div class="container">
   <h1 class="mb-4">Welcome to iSchedule, <span th:text="${#authentication.principal.username}"></span>!</h1>
+  <form action="/logout" method="post">
+    <button type="submit" class="btn btn-secondary">Logout</button>
+  </form>
   <!-- Personal Schedule -->
   <h2>Your Personal Schedule</h2>
   <table class="table">

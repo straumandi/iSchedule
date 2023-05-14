@@ -29,9 +29,15 @@
         <label for="password">Password</label>
         <input type="password" class="form-control" id="password" name="password" required>
       </div>
+      <div class="alert alert-danger" th:if="${param.error}">
+        Invalid username or password.
+      </div>
       <button type="submit" class="btn btn-primary">Login</button>
       <p class="text-center mt-3">Don't have an account? <a href="/signup">Create Account</a></p>
     </form>
+    <div class="alert alert-info" th:if="${param.logout}">
+      You have been logged out.
+    </div>
   </div>
 </div>
 <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>

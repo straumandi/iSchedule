@@ -13,7 +13,7 @@ public class WelcomeController {
 
     @GetMapping("/welcome")
     public String showWelcomePage() {
-        return "welcome"; // Return the name of the Thymeleaf template for the welcome page
+        return "welcome";
     }
 }
 
