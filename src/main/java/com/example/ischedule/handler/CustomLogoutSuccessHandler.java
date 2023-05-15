@@ -10,7 +10,7 @@ import org.springframework.stereotype.Component;
 import java.io.IOException;
 
 @Component
-public class CustomLogoutSuccessHandler implements LogoutSuccessHandler {
+public class CustomLogoutSuccessHandler implements LogoutSuccessHandler  {
 
     @Override
     public void onLogoutSuccess(HttpServletRequest request, HttpServletResponse response,
@@ -18,4 +18,6 @@ public class CustomLogoutSuccessHandler implements LogoutSuccessHandler {
         // Handle logout success logic here
         response.sendRedirect("/login.html");
     }
+
+
 }

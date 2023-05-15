@@ -3,6 +3,9 @@ package com.example.ischedule.Model;
 import jakarta.persistence.*;
 import org.springframework.stereotype.Component;
 
+import java.util.HashSet;
+import java.util.Set;
+
 @Entity
 @Table(name = "users")
 @Component
@@ -24,6 +27,14 @@ public class User {
     @Column(nullable = false)
     @Enumerated(EnumType.STRING)
     private UserRole role;
+
+    /*@ManyToMany
+    @JoinTable(
+            name = "user_course",
+            joinColumns = @JoinColumn(name = "user_id"),
+            inverseJoinColumns = @JoinColumn(name = "course_id")
+    )
+    private Set<Course> enrolledCourses = new HashSet<>();*/
 
     /*
      * This constructor is mandatory for Hibernate to work,

@@ -2,6 +2,9 @@ package com.example.ischedule.Model;
 
 import jakarta.persistence.*;
 
+import java.util.HashSet;
+import java.util.Set;
+
 @Entity
 @Table(name = "courses")
 public class Course {
@@ -15,6 +18,13 @@ public class Course {
 
     @Column(length = 1000)
     private String description;
+
+    @ManyToOne
+    @JoinColumn(name = "admin_id", referencedColumnName = "id")
+    private User admin;
+
+    @ManyToMany(mappedBy = "enrolledCourses")
+    private Set<User> enrolledUsers = new HashSet<>();
 
     /*
      * This constructor is mandatory for Hibernate to work,
@@ -47,6 +57,14 @@ public class Course {
 
     public void setDescription(String description) {
         this.description = description;
+    }
+
+    public User getAdmin() {
+        return admin;
+    }
+
+    public void setAdmin(User admin) {
+        this.admin = admin;
     }
 }
 
