@@ -65,3 +65,40 @@ CREATE TABLE preferences
     CONSTRAINT fk_user_id_for_preferences FOREIGN KEY (user_id) REFERENCES users (id),
     CONSTRAINT fk_preferred_room_id FOREIGN KEY (preferred_room_id) REFERENCES rooms (id)
 )
+    -- create bulk data --
+-- Insert sample courses
+    INSERT INTO courses (description, name, admin_id, instructor_id) VALUES
+('Course 1 description', 'Course 1', 1, 1),
+('Course 2 description', 'Course 2', 1, 2),
+('Course 3 description', 'Course 3', 1, 1);
+
+-- Insert sample rooms
+INSERT INTO rooms (capacity, name)
+VALUES (30, 'Room 101'),
+       (25, 'Room 102'),
+       (20, 'Room 103');
+
+-- Insert sample schedules
+INSERT INTO schedules (week_number, user_id)
+VALUES (1, 1),
+       (2, 1),
+       (1, 6);
+
+-- Insert sample course schedules
+INSERT INTO course_schedule (day_of_week, end_time, start_time, course_id, room_id, schedule_id)
+VALUES ('Monday', '10:00:00', '09:00:00', 1, 1, 1),
+       ('Wednesday', '12:00:00', '11:00:00', 1, 1, 2),
+       ('Friday', '14:00:00', '13:00:00', 2, 2, 1),
+       ('Tuesday', '16:00:00', '15:00:00', 3, 3, 3);
+
+-- Insert sample user-course enrollments
+INSERT INTO user_course (user_id, course_id, id)
+VALUES (1, 1, 1),
+       (1, 2, 2),
+       (6, 1, 3),
+       (7, 3, 4);
+
+-- Insert sample preferences
+INSERT INTO preferences (prefered_day_of_week, preferred_end_time, preferred_start_time, preferred_room_id, user_id)
+VALUES ('Monday', '12:00:00', '10:00:00', 1, 1),
+       ('Friday', '16:00:00', '14:00:00', 2, 1);

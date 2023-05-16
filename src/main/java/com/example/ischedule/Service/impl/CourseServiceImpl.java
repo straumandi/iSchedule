@@ -18,13 +18,13 @@ public class CourseServiceImpl implements CourseService {
     }
 
     @Override
-    public List<Course> getCoursesByUser(User user) {
-        return courseRepository.findByUser(user);
+    public List<Course> getAllCourses() {
+        return courseRepository.findAll();
     }
 
     @Override
-    public List<Course> getAllCourses() {
-        return courseRepository.findAll();
+    public List<Course> getEnrolledCourses(User user) {
+        return courseRepository.getEnrolledCourses(user);
     }
 
     @Override
@@ -41,6 +41,7 @@ public class CourseServiceImpl implements CourseService {
     public void deleteCourse(int id) {
         courseRepository.deleteById(id);
     }
+
 
 }
 

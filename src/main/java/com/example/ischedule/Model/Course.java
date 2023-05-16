@@ -19,8 +19,12 @@ public class Course {
     @Column(length = 1000)
     private String description;
 
-    @ManyToOne
-    @JoinColumn(name = "admin_id", referencedColumnName = "id")
+    @ManyToOne(fetch = FetchType.LAZY, cascade=CascadeType.PERSIST)
+    @JoinColumn(name = "instructor_id")
+    private User instructor;
+
+    @ManyToOne(fetch = FetchType.LAZY, cascade=CascadeType.PERSIST)
+    @JoinColumn(name = "admin_id")
     private User admin;
 
     @ManyToMany(mappedBy = "enrolledCourses")
@@ -65,6 +69,10 @@ public class Course {
 
     public void setAdmin(User admin) {
         this.admin = admin;
+    }
+
+    public Set<User> getEnrolledUsers() {
+        return enrolledUsers;
     }
 }
 

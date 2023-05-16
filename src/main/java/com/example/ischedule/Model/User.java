@@ -28,13 +28,13 @@ public class User {
     @Enumerated(EnumType.STRING)
     private UserRole role;
 
-    /*@ManyToMany
+    @ManyToMany(cascade = CascadeType.ALL)
     @JoinTable(
             name = "user_course",
             joinColumns = @JoinColumn(name = "user_id"),
             inverseJoinColumns = @JoinColumn(name = "course_id")
     )
-    private Set<Course> enrolledCourses = new HashSet<>();*/
+    private Set<Course> enrolledCourses = new HashSet<>();
 
     /*
      * This constructor is mandatory for Hibernate to work,
@@ -95,5 +95,9 @@ public class User {
 
     public void setRole(UserRole role) {
         this.role = role;
+    }
+
+    public Set<Course> getEnrolledCourses() {
+        return enrolledCourses;
     }
 }
