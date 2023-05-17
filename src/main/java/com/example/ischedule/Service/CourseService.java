@@ -12,7 +12,7 @@ public interface CourseService {
     /*
      * Find all courses that belong to a user.
      */
-    List<Course>getEnrolledCourses(User user);
+    List<Course>getEnrolledCourses(int userId);
     Optional<Course> getCourseById(int id);
     void saveCourse(Course course);
     void deleteCourse(int id);

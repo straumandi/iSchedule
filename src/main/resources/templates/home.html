@@ -26,7 +26,7 @@
     <!-- Iterate over the courses enrolled by the student -->
     <tr th:each="course : ${enrolledCourses}">
       <td th:text="${course.name}"></td>
-      <td th:text="${course.room}"></td>
+      <td th:text="${course.room.name}"></td>
       <td th:text="${course.time}"></td>
     </tr>
     </tbody>

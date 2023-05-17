@@ -27,8 +27,8 @@ public class Preferences {
     private Room preferredRoom;
 
     @Enumerated(EnumType.STRING)
-    @Column(name = "prefered_day_of_week")
-    private DayOfWeek preferedDayOfWeek;
+    @Column(name = "preferred_day_of_week")
+    private DayOfWeek preferredDayOfWeek;
 
     /*
      * This constructor is mandatory for Hibernate to work,
@@ -37,13 +37,13 @@ public class Preferences {
      */
     public Preferences() {}
 
-    public Preferences(int id, User user, Time preferredStartTime, Time preferredEndTime, Room preferredRoom, DayOfWeek preferedDayOfWeek) {
+    public Preferences(int id, User user, Time preferredStartTime, Time preferredEndTime, Room preferredRoom, DayOfWeek preferredDayOfWeek) {
         this.id = id;
         this.user = user;
         this.preferredStartTime = preferredStartTime;
         this.preferredEndTime = preferredEndTime;
         this.preferredRoom = preferredRoom;
-        this.preferedDayOfWeek = preferedDayOfWeek;
+        this.preferredDayOfWeek = preferredDayOfWeek;
     }
 
     public int getId() {
@@ -82,12 +82,12 @@ public class Preferences {
         this.preferredRoom = preferredRoom;
     }
 
-    public DayOfWeek getPreferedDayOfWeek() {
-        return preferedDayOfWeek;
+    public DayOfWeek getPreferredDayOfWeek() {
+        return preferredDayOfWeek;
     }
 
-    public void setPreferedDayOfWeek(DayOfWeek preferedDayOfWeek) {
-        this.preferedDayOfWeek = preferedDayOfWeek;
+    public void setPreferredDayOfWeek(DayOfWeek preferedDayOfWeek) {
+        this.preferredDayOfWeek = preferedDayOfWeek;
     }
 }
 

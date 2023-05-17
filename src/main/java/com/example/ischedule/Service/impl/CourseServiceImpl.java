@@ -23,8 +23,8 @@ public class CourseServiceImpl implements CourseService {
     }
 
     @Override
-    public List<Course> getEnrolledCourses(User user) {
-        return courseRepository.getEnrolledCourses(user);
+    public List<Course> getEnrolledCourses(int userId) {
+        return courseRepository.getEnrolledCourses(userId);
     }
 
     @Override

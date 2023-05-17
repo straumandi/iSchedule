@@ -47,7 +47,7 @@ public class HomeController {
         if (currentUser.getAuthorities().contains(new SimpleGrantedAuthority("ROLE_STUDENT"))) {
             model.addAttribute("isStudent", true);
             // Get the enrolled courses for the student and add them to the model
-            List<Course> enrolledCourses = courseService.getEnrolledCourses(currentUserObject);
+            List<Course> enrolledCourses = courseService.getEnrolledCourses(currentUserObject.getId());
             model.addAttribute("enrolledCourses", enrolledCourses);
         } else {
             model.addAttribute("isStudent", false);
