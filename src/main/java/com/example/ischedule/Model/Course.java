@@ -30,6 +30,7 @@ public class Course {
     @ManyToMany(mappedBy = "enrolledCourses")
     private Set<User> enrolledUsers = new HashSet<>();
 
+
     /*
      * This constructor is mandatory for Hibernate to work,
      * since it needs to first fetch the empty objects,
@@ -73,6 +74,10 @@ public class Course {
 
     public Set<User> getEnrolledUsers() {
         return enrolledUsers;
+    }
+
+    public void setEnrolledUsers(Set<User> enrolledUsers) {
+        this.enrolledUsers = enrolledUsers;
     }
 }
 

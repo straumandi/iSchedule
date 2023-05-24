@@ -1,4 +1,4 @@
-package com.example.ischedule.Service;
+package com.example.ischedule.security;
 
 import com.example.ischedule.Model.User;
 import org.springframework.security.core.GrantedAuthority;
@@ -8,6 +8,11 @@ import org.springframework.stereotype.Component;
 
 import java.util.Collection;
 import java.util.Collections;
+
+/*
+ * This class is used by the Spring Security framework
+ * for authentication and authorization purposes.
+ */
 
 @Component
 public class CustomUserDetails implements UserDetails {

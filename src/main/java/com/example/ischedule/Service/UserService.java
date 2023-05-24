@@ -2,6 +2,7 @@ package com.example.ischedule.Service;
 
 import com.example.ischedule.Model.User;
 import com.example.ischedule.Model.UserRole;
+import com.example.ischedule.security.CustomUserDetails;
 
 import java.util.List;
 
@@ -22,6 +23,8 @@ public interface UserService {
     List<User> getUsersByRole(UserRole role);
 
     User updateUser(Integer id, User updatedUser);
+
+    User getUserByUsername(String username);
 }
 
 

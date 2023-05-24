@@ -1,7 +1,8 @@
-package com.example.ischedule.Service;
+package com.example.ischedule.security;
 
 import com.example.ischedule.Model.User;
 import com.example.ischedule.Repository.UserRepository;
+import com.example.ischedule.security.CustomUserDetails;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;

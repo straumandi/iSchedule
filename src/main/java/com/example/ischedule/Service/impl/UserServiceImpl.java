@@ -3,7 +3,7 @@ package com.example.ischedule.Service.impl;
 import com.example.ischedule.Model.User;
 import com.example.ischedule.Model.UserRole;
 import com.example.ischedule.Repository.UserRepository;
-import com.example.ischedule.Service.CustomUserDetails;
+import com.example.ischedule.security.CustomUserDetails;
 import com.example.ischedule.Service.UserService;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -73,6 +73,11 @@ public class UserServiceImpl implements UserService {
         user.setPassword(updatedUser.getPassword());
         user.setRole(updatedUser.getRole());
         return userRepository.save(user);
+    }
+
+    @Override
+    public User getUserByUsername(String username) {
+        return userRepository.findByUsername(username);
     }
 
 }

@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
+import java.util.Set;
 
 @Service
 public class CourseServiceImpl implements CourseService {
@@ -24,6 +25,7 @@ public class CourseServiceImpl implements CourseService {
 
     @Override
     public List<Course> getEnrolledCourses(int userId) {
+        System.out.println("Enrolled Courses: " + courseRepository.getEnrolledCourses(userId));
         return courseRepository.getEnrolledCourses(userId);
     }
 
@@ -40,6 +42,20 @@ public class CourseServiceImpl implements CourseService {
     @Override
     public void deleteCourse(int id) {
         courseRepository.deleteById(id);
+    }
+
+    @Override
+    public void enrollUserInCourse(User user, Optional<Course> course) {
+        if (course.isPresent()) {
+            Course enrolledCourse = course.get();
+            Set<User> enrolledUsers = enrolledCourse.getEnrolledUsers();
+            enrolledUsers.add(user);
+            enrolledCourse.setEnrolledUsers(enrolledUsers);
+            courseRepository.save(enrolledCourse);
+        } else {
+            //TODO: Handle the case when the course is not found
+            //TODO: Create global error Interceptor!
+        }
     }
 
 

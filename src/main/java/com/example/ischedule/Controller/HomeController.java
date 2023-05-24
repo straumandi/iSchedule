@@ -3,7 +3,7 @@ package com.example.ischedule.Controller;
 import com.example.ischedule.Model.Course;
 import com.example.ischedule.Model.User;
 import com.example.ischedule.Service.CourseService;
-import com.example.ischedule.Service.CustomUserDetails;
+import com.example.ischedule.security.CustomUserDetails;
 import com.example.ischedule.Service.UserService;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -48,12 +48,17 @@ public class HomeController {
             model.addAttribute("isStudent", true);
             // Get the enrolled courses for the student and add them to the model
             List<Course> enrolledCourses = courseService.getEnrolledCourses(currentUserObject.getId());
+            for(Course course: enrolledCourses) {
+                System.out.println(course.toString());
+            }
             model.addAttribute("enrolledCourses", enrolledCourses);
         } else {
             model.addAttribute("isStudent", false);
         }
 
         //TODO: Add other necessary data to the model
+        List<Course> allCourses = courseService.getAllCourses();
+        model.addAttribute("allCourses", allCourses);
 
         return "home";
     }

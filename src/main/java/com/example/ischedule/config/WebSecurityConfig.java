@@ -1,10 +1,9 @@
 package com.example.ischedule.config;
 
-import com.example.ischedule.Service.CustomUserDetailsService;
+import com.example.ischedule.security.CustomUserDetailsService;
 import com.example.ischedule.handler.CustomAuthenticationFailureHandler;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -15,7 +14,6 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.AuthenticationFailureHandler;
-import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 
 @Configuration
 @EnableWebSecurity
@@ -41,7 +39,7 @@ public class WebSecurityConfig extends WebSecurityConfiguration {
         return (web) -> web.ignoring().requestMatchers("/js/**", "/images/**");
     }
 
-    //configure AuthenticationProvider, which provides the UserDetails of a authenticated User
+    //configure AuthenticationProvider, which provides the CustomUserDetails of a authenticated User
     @Bean
     AuthenticationProvider authenticationProvider() {
         DaoAuthenticationProvider provider = new DaoAuthenticationProvider();

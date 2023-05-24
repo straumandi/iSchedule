@@ -16,6 +16,8 @@ public interface CourseService {
     Optional<Course> getCourseById(int id);
     void saveCourse(Course course);
     void deleteCourse(int id);
+
+    void enrollUserInCourse(User user, Optional<Course> course);
 }
 
 
