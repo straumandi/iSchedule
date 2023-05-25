@@ -3,7 +3,6 @@ package com.example.ischedule.Model;
 import jakarta.persistence.*;
 
 import java.util.HashSet;
-import java.util.List;
 import java.util.Set;
 
 @Entity
@@ -20,17 +19,21 @@ public class Course {
     @Column(length = 1000)
     private String description;
 
-    @ManyToOne(fetch = FetchType.LAZY, cascade=CascadeType.ALL)
+    @ManyToOne(fetch = FetchType.EAGER, cascade=CascadeType.ALL)
     @JoinColumn(name = "instructor_id")
     private User instructor;
 
-    @ManyToOne(fetch = FetchType.LAZY, cascade=CascadeType.ALL)
+    @ManyToOne(fetch = FetchType.EAGER, cascade=CascadeType.ALL)
     @JoinColumn(name = "admin_id")
     private User admin;
 
-    @ManyToMany(mappedBy = "enrolledCourses")
+    @ManyToMany(mappedBy = "enrolledCourses", fetch = FetchType.EAGER, cascade=CascadeType.ALL)
     private Set<User> enrolledUsers = new HashSet<>();
 
+    /*
+     * When the fetch type is set to eager, the associated entities are loaded immediately along with the owning entity.
+     * It means that all related entities will be fetched from the database in a single query,
+     * reducing the need for additional database access when accessing the associated entities.  */
     @OneToOne(mappedBy = "course", fetch = FetchType.EAGER, cascade=CascadeType.ALL)
     private CourseSchedule courseSchedule;
 

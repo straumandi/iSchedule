@@ -1,11 +1,11 @@
 package com.example.ischedule.Controller;
 
 import com.example.ischedule.Model.Course;
-import com.example.ischedule.Model.CourseSchedule;
 import com.example.ischedule.Model.User;
 import com.example.ischedule.Service.CourseService;
-import com.example.ischedule.security.CustomUserDetails;
 import com.example.ischedule.Service.UserService;
+import com.example.ischedule.security.CustomUserDetails;
+import jakarta.persistence.EntityManager;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -17,11 +17,15 @@ import java.util.List;
 
 @Controller
 public class HomeController {
+
     private final UserService userService; // UserService to retrieve the authenticated user
     private final CourseService courseService;
-    public HomeController(UserService userService, CourseService courseService) {
+    private final EntityManager entityManager;
+
+    public HomeController(UserService userService, CourseService courseService, EntityManager entityManager) {
         this.userService = userService;
         this.courseService = courseService;
+        this.entityManager = entityManager;
     }
 
     @GetMapping("/home")
@@ -29,8 +33,7 @@ public class HomeController {
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         String username = auth.getName();
         model.addAttribute("username", username);
-
-        CustomUserDetails currentUser = userService.getCurrentUser();
+        CustomUserDetails currentUser = (CustomUserDetails) auth.getPrincipal();
         User currentUserObject = new User(currentUser.getUsername(), currentUser.getUser().getEmail(), currentUser.getPassword(), currentUser.getUser().getRole());
         // Determine the user's role and set corresponding attributes in the model
         if (currentUser.getAuthorities().contains(new SimpleGrantedAuthority("ROLE_ADMIN"))) {
