@@ -3,6 +3,7 @@ package com.example.ischedule.Model;
 import jakarta.persistence.*;
 
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 @Entity
@@ -30,6 +31,8 @@ public class Course {
     @ManyToMany(mappedBy = "enrolledCourses")
     private Set<User> enrolledUsers = new HashSet<>();
 
+    @OneToOne(mappedBy = "course", fetch = FetchType.EAGER, cascade=CascadeType.ALL)
+    private CourseSchedule courseSchedule;
 
     /*
      * This constructor is mandatory for Hibernate to work,
@@ -46,6 +49,10 @@ public class Course {
 
     public int getId() {
         return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 
     public String getName() {
@@ -72,12 +79,28 @@ public class Course {
         this.admin = admin;
     }
 
+    public User getInstructor() {
+        return instructor;
+    }
+
+    public void setInstructor(User instructor) {
+        this.instructor = instructor;
+    }
+
     public Set<User> getEnrolledUsers() {
         return enrolledUsers;
     }
 
     public void setEnrolledUsers(Set<User> enrolledUsers) {
         this.enrolledUsers = enrolledUsers;
+    }
+
+    public CourseSchedule getCourseSchedule() {
+        return courseSchedule;
+    }
+
+    public void setCourseSchedule(CourseSchedule courseSchedule) {
+        this.courseSchedule = courseSchedule;
     }
 }
 

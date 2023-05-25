@@ -24,11 +24,11 @@
     </thead>
     <tbody>
     <!-- Iterate over the courses enrolled by the student -->
-    <tr th:each="course : ${enrolledCourses}">
+    <!--<tr th:each="course : ${enrolledCourses}">
       <td th:text="${course.name}"></td>
       <td th:text="${course.room.name}"></td>
       <td th:text="${course.time}"></td>
-    </tr>
+    </tr>  -->
     </tbody>
   </table>
 
@@ -74,8 +74,8 @@
       <!-- Iterate over all courses -->
       <tr th:each="course : ${allCourses}">
         <td th:text="${course.name}"></td>
-        <td th:text="${course.room.name}"></td>
-        <td th:text="${course.time}"></td>
+        <td th:text="${course.courseSchedule.room.name}"></td>
+        <td th:text="${course.courseSchedule.startTime} + ' - ' + ${course.courseSchedule.endTime}"></td>
         <td>
           <form th:action="@{/enroll}" method="post">
             <input type="hidden" name="courseId" th:value="${course.id}" />

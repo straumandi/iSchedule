@@ -1,6 +1,7 @@
 package com.example.ischedule.Controller;
 
 import com.example.ischedule.Model.Course;
+import com.example.ischedule.Model.CourseSchedule;
 import com.example.ischedule.Model.User;
 import com.example.ischedule.Service.CourseService;
 import com.example.ischedule.security.CustomUserDetails;

@@ -1,26 +1,31 @@
 package com.example.ischedule.Service.impl;
 
 import com.example.ischedule.Model.Course;
+import com.example.ischedule.Model.CourseSchedule;
 import com.example.ischedule.Model.User;
 import com.example.ischedule.Repository.CourseRepository;
+import com.example.ischedule.Repository.CourseScheduleRepository;
 import com.example.ischedule.Service.CourseService;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.Optional;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 @Service
 public class CourseServiceImpl implements CourseService {
     private final CourseRepository courseRepository;
+    private final CourseScheduleRepository courseScheduleRepository;
 
-    public CourseServiceImpl(CourseRepository courseRepository) {
+    public CourseServiceImpl(CourseRepository courseRepository, CourseScheduleRepository courseScheduleRepository) {
         this.courseRepository = courseRepository;
+        this.courseScheduleRepository = courseScheduleRepository;
     }
 
     @Override
     public List<Course> getAllCourses() {
-        return courseRepository.findAll();
+       return courseRepository.findAll();
     }
 
     @Override

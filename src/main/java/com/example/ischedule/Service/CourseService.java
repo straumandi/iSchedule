@@ -1,6 +1,7 @@
 package com.example.ischedule.Service;
 
 import com.example.ischedule.Model.Course;
+import com.example.ischedule.Model.CourseSchedule;
 import com.example.ischedule.Model.User;
 
 import java.util.List;
