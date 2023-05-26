@@ -1,26 +1,31 @@
 package com.example.ischedule.Service.impl;
 
 import com.example.ischedule.Model.Course;
-import com.example.ischedule.Model.CourseSchedule;
 import com.example.ischedule.Model.User;
 import com.example.ischedule.Repository.CourseRepository;
 import com.example.ischedule.Repository.CourseScheduleRepository;
+import com.example.ischedule.Repository.UserRepository;
 import com.example.ischedule.Service.CourseService;
+import com.example.ischedule.Service.UserService;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.Optional;
 import java.util.Set;
-import java.util.stream.Collectors;
 
 @Service
 public class CourseServiceImpl implements CourseService {
     private final CourseRepository courseRepository;
     private final CourseScheduleRepository courseScheduleRepository;
+    private final UserService userService;
+    private final UserRepository userRepository;
 
-    public CourseServiceImpl(CourseRepository courseRepository, CourseScheduleRepository courseScheduleRepository) {
+    public CourseServiceImpl(CourseRepository courseRepository, CourseScheduleRepository courseScheduleRepository, UserService userService, UserRepository userRepository) {
         this.courseRepository = courseRepository;
         this.courseScheduleRepository = courseScheduleRepository;
+        this.userService = userService;
+        this.userRepository = userRepository;
     }
 
     @Override
@@ -49,19 +54,28 @@ public class CourseServiceImpl implements CourseService {
         courseRepository.deleteById(id);
     }
 
+    @Transactional
     @Override
     public void enrollUserInCourse(User user, Optional<Course> course) {
         if (course.isPresent()) {
             Course enrolledCourse = course.get();
             Set<User> enrolledUsers = enrolledCourse.getEnrolledUsers();
-            enrolledUsers.add(user);
-            enrolledCourse.setEnrolledUsers(enrolledUsers);
+
+            // Make sure the user is persisted in the database
+            User persistedUser = userRepository.save(user);
+
+            // Associate the persisted user with the course
+            enrolledUsers.add(persistedUser);
+
             courseRepository.save(enrolledCourse);
         } else {
-            //TODO: Handle the case when the course is not found
-            //TODO: Create global error Interceptor!
+            // TODO: Handle the case when the course is not found
+            // TODO: Create global error Interceptor!
         }
     }
+
+
+
 
 
 }

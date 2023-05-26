@@ -27,7 +27,7 @@ public class Course {
     @JoinColumn(name = "admin_id")
     private User admin;
 
-    @ManyToMany(mappedBy = "enrolledCourses", fetch = FetchType.EAGER, cascade=CascadeType.ALL)
+    @ManyToMany(mappedBy = "enrolledCourses", cascade=CascadeType.PERSIST)
     private Set<User> enrolledUsers = new HashSet<>();
 
     /*
