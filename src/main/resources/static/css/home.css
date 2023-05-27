@@ -1,0 +1,22 @@
+.preferences-box {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    padding: 10px;
+    background-color: #f8f8f8;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.preferences-box h5 {
+    margin-top: 0;
+}
+
+.preferences-box p {
+    margin: 5px 0;
+}
+
+.preferences-box .btn {
+    margin-top: 10px;
+}

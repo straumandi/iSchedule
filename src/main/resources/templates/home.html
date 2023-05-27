@@ -1,89 +1,157 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Home - iSchedule</title>
-  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">‚
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Home - iSchedule</title>
+    <link rel="stylesheet" href="/css/home.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    ‚
 </head>
 <body>
+<style>
+    .preferences-box {
+        position: fixed;
+        top: 20px;
+        right: 20px;
+        padding: 10px;
+        background-color: #f8f8f8;
+        border: 1px solid #ddd;
+        border-radius: 4px;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    }
+
+    .preferences-box h5 {
+        margin-top: 0;
+    }
+
+    .preferences-box p {
+        margin: 5px 0;
+    }
+
+    .preferences-box .btn {
+        margin-top: 10px;
+    }
+</style>
 <div class="container">
-  <h1 class="mb-4">Welcome to iSchedule, <span th:text="${#authentication.principal.username}"></span>!</h1>
-  <form action="/logout" method="post">
-    <button type="submit" class="btn btn-secondary">Logout</button>
-  </form>
-  <!-- Personal Schedule -->
-  <h2>Your Personal Schedule</h2>
-  <table class="table">
-    <thead>
-    <tr>
-      <th>Course</th>
-      <th>Room</th>
-      <th>Time</th>
-    </tr>
-    </thead>
-    <tbody>
-    <!-- Iterate over the courses enrolled by the student -->
-    <tr th:each="course : ${enrolledCourses}">
-      <td th:text="${course.name}"></td>
-      <td th:text="${course.courseSchedule.room.name}"></td>
-      <td th:text="${course.courseSchedule.startTime} + ' - ' + ${course.courseSchedule.endTime}"></td>
-    </tr>
-    </tbody>
-  </table>
-
-  <!-- Administrator Actions -->
-  <div th:if="${isAdmin}">
-    <h2>Administrator Actions</h2>
-    <!-- Add course form -->
-    <form th:action="@{/addCourse}" method="post">
-      <h3>Add Course</h3>
-      <!-- Course details inputs -->
-      <!-- ... -->
-      <button type="submit" class="btn btn-primary">Add</button>
+    <h1 class="mb-4">Welcome to iSchedule, <span th:text="${#authentication.principal.username}"></span>!</h1>
+    <form action="/logout" method="post">
+        <button type="submit" class="btn btn-secondary">Logout</button>
     </form>
-    <!-- Other administrator actions -->
-    <!-- ... -->
-  </div>
+    <!-- Personal Schedule -->
+    <div th:if="${isStudent}">
+        <h2>Your Personal Schedule</h2>
+        <table class="table">
+            <thead>
+            <tr>
+                <th>Course</th>
+                <th>Room</th>
+                <th>Time</th>
+            </tr>
+            </thead>
+            <tbody>
+            <!-- Iterate over the courses enrolled by the student -->
+            <tr th:each="course : ${enrolledCourses}">
+                <td th:text="${course.name}"></td>
+                <td th:text="${course.courseSchedule.room.name}"></td>
+                <td th:text="${course.courseSchedule.startTime} + ' - ' + ${course.courseSchedule.endTime}"></td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+    <!-- Student Actions -->
+    <div th:if="${isStudent}">
+        <h2>Student Actions</h2>
+        <!-- Student-specific actions (enroll) -->
+        <h2>All Courses</h2>
+        <table class="table">
+            <thead>
+            <tr>
+                <th>Course</th>
+                <th>Room</th>
+                <th>Time</th>
+                <th>Enroll</th>
+            </tr>
+            </thead>
+            <tbody>
+            <!-- Iterate over all courses -->
+            <tr th:each="course : ${allCourses}">
+                <td th:text="${course.name}"></td>
+                <td th:text="${course.courseSchedule.room.name}"></td>
+                <td th:text="${course.courseSchedule.startTime} + ' - ' + ${course.courseSchedule.endTime}"></td>
+                <td>
+                    <form th:action="@{/enroll}" method="post">
+                        <input type="hidden" name="courseId" th:value="${course.id}"/>
+                        <button type="submit" class="btn btn-primary">Enroll</button>
+                    </form>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
 
-  <!-- Assistant Actions -->
-  <div th:if="${isAssistant}">
-    <h2>Assistant Actions</h2>
-    <!-- Assistant-specific actions -->
-    <!-- ... -->
-  </div>
+    <!-- Administrator Actions -->
+    <div th:if="${isAdmin}">
+        <h2>Administrator Actions</h2>
+        <!-- Add course form -->
+        <form th:action="@{/addCourse}" method="post">
+            <h3>Add Course</h3>
+            <!-- Course details inputs -->
+            <!-- ... -->
+            <button type="submit" class="btn btn-primary">Add</button>
+        </form>
+        <!-- Other administrator actions -->
+    </div>
 
-  <!-- Student Actions -->
-  <div th:if="${isStudent}">
-    <h2>Student Actions</h2>
-    <!-- Student-specific actions (enroll) -->
-    <h2>All Courses</h2>
-    <table class="table">
-      <thead>
-      <tr>
-        <th>Course</th>
-        <th>Room</th>
-        <th>Time</th>
-        <th>Enroll</th>
-      </tr>
-      </thead>
-      <tbody>
-      <!-- Iterate over all courses -->
-      <tr th:each="course : ${allCourses}">
-        <td th:text="${course.name}"></td>
-        <td th:text="${course.courseSchedule.room.name}"></td>
-        <td th:text="${course.courseSchedule.startTime} + ' - ' + ${course.courseSchedule.endTime}"></td>
-        <td>
-          <form th:action="@{/enroll}" method="post">
-            <input type="hidden" name="courseId" th:value="${course.id}" />
-            <button type="submit" class="btn btn-primary">Enroll</button>
-          </form>
-        </td>
-      </tr>
-      </tbody>
-    </table>
-  </div>
-
+    <!-- Administrator AND Assistant Actions -->
+    <div th:if="${isAdmin or isAssistant}" class="preferences-box">
+        <h5>Your Preferences:</h5>
+        <div th:if="${preferences}">
+            <p><strong>Preferred Start Time:</strong> <span th:text="${preferences.preferredStartTime}"></span></p>
+            <p><strong>Preferred End Time:</strong> <span th:text="${preferences.preferredEndTime}"></span></p>
+            <p><strong>Preferred Room:</strong> <span th:text="${preferences.preferredRoom?.name}"></span></p>
+            <p><strong>Preferred Day of Week:</strong> <span th:text="${preferences.preferredDayOfWeek}"></span></p>
+            <a th:href="@{/preferences/edit}" class="btn btn-primary">Edit Preferences</a>
+        </div>
+        <div th:unless="${preferences}">
+            <p>No preferences set.</p>
+            <a th:href="@{/preferences/edit}" class="btn btn-primary">Set Preferences</a>
+        </div>
+    </div>
+    <!-- Save/Edit preferences -->
+    <div th:if="${preferences}">
+        <h2 class="m-4">Set your Preferences:</h2>
+        <form th:action="@{/savePreferences}" method="post" th:object="${preferences}">
+            <div class="form-group">
+                <label for="startTime">Preferred Start Time:</label>
+                <input type="time" class="form-control" id="startTime" name="startTime"
+                       th:value="${preferences != null ? preferences.preferredStartTime : ''}" required>
+            </div>
+            <div class="form-group">
+                <label for="endTime">Preferred End Time:</label>
+                <input type="time" class="form-control" id="endTime" name="endTime"
+                       th:value="${preferences != null ? preferences.preferredEndTime : ''}" required>
+            </div>
+            <div class="form-group">
+                <label for="room">Preferred Room:</label>
+                <select class="form-control" id="room" name="room" required>
+                    <option value="">Select a room</option>
+                    <option th:each="room : ${rooms}" th:value="${room.id}" th:text="${room.name}"
+                            th:selected="${room.id == preferences?.preferredRoom?.id}"></option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="dayOfWeek">Preferred Day of Week:</label>
+                <select class="form-control" id="dayOfWeek" name="dayOfWeek" required>
+                    <option value="">Select a week day</option>
+                    <option th:each="day : ${T(com.example.ischedule.Model.DayOfWeek).values()}"
+                            th:value="${day}" th:text="${day}"
+                            th:selected="${day == preferences?.preferredDayOfWeek}"></option>
+                </select>
+            </div>
+            <button type="submit" class="btn btn-primary">Save Preferences</button>
+        </form>
+    </div>
 </div>
 
 <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>

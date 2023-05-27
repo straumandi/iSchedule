@@ -4,13 +4,19 @@ iSchedule is a full-stack scheduling application that allows users to manage the
 user-friendly interface built with Thymeleaf for creating and organizing course schedules, making it easy to keep track
 of class timings, room assignments, and student enrollments.
 
-## Features
+## Planed Features
 
 - User Management: Create user accounts with different roles (admin, assistant, student) to manage the application.
 - Course Management: Add, update, and delete courses, including course name, start time, end time, and room assignment.
 - Room Management: Manage rooms where courses are conducted, including room names and availability.
 - Enrollment Management: Enroll students in courses and track their enrollments.
 - Schedule Display: Display the weekly schedule with course details, room assignments, and timings.
+- Preferences: Allow admins and assistants to set their preferred start time, end time, and room.
+
+## Implemented Features
+- User Management: Create user accounts with STUDENT role. (DB Admin can change role, user should not choose his role)
+- Enrollment Management: Enroll students in courses and track their enrollments.
+- Schedule Display: Display the schedule with course details, room assignments, and timings.
 - Preferences: Allow admins and assistants to set their preferred start time, end time, and room.
 
 ## Technologies Used
