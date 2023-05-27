@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 5.2.0
+-- version 5.2.1
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Erstellungszeit: 25. Mai 2023 um 16:27
--- Server-Version: 10.4.27-MariaDB
--- PHP-Version: 8.1.12
+-- Erstellungszeit: 27. Mai 2023 um 20:23
+-- Server-Version: 10.4.28-MariaDB
+-- PHP-Version: 8.2.4
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 START TRANSACTION;
@@ -89,8 +89,8 @@ CREATE TABLE `preferences` (
 --
 
 INSERT INTO `preferences` (`id`, `preferred_day_of_week`, `preferred_end_time`, `preferred_start_time`, `preferred_room_id`, `user_id`) VALUES
-(1, 'Monday', '18:00:00', '16:00:00', 1, 1),
-(2, 'Tuesday', '20:00:00', '18:00:00', 2, 2);
+(1, 'MONDAY', '18:00:00', '16:00:00', 2, 3),
+(2, 'THURSDAY', '16:00:00', '14:00:00', 3, 2);
 
 -- --------------------------------------------------------
 
@@ -154,8 +154,10 @@ CREATE TABLE `users` (
 
 INSERT INTO `users` (`id`, `email`, `password`, `role`, `username`) VALUES
 (1, 'john@example.com', '$2y$12$qZBG.TiVcPJrWW7wZL2zOu988sfqASQ2BAfk2mEkb1FkwnzJSzm2W', 'STUDENT', 'john'),
-(2, 'emma@example.com', '$2y$12$qZBG.TiVcPJrWW7wZL2zOu988sfqASQ2BAfk2mEkb1FkwnzJSzm2W', 'STUDENT', 'emma'),
-(3, 'admin@example.com', '$2y$12$qZBG.TiVcPJrWW7wZL2zOu988sfqASQ2BAfk2mEkb1FkwnzJSzm2W', 'ADMIN', 'admin');
+(2, 'emma@example.com', '$2y$12$qZBG.TiVcPJrWW7wZL2zOu988sfqASQ2BAfk2mEkb1FkwnzJSzm2W', 'ASSISTANT', 'emma'),
+(3, 'admin@example.com', '$2y$12$qZBG.TiVcPJrWW7wZL2zOu988sfqASQ2BAfk2mEkb1FkwnzJSzm2W', 'ADMIN', 'admin'),
+(4, 'peter@mail.com', '$2a$10$0uve.87p35T1wmemeBiCre0I.OtZG1nAhiGWD0K3z9sjXV06/D3Ga', 'STUDENT', 'peter'),
+(5, 'max@muster.at', '$2a$10$eX7XQgPigHXudUZ8X48bCuSBq2LZbTaIyGX2ZodKB4GhCrItjxc8C', 'ASSISTANT', 'max');
 
 -- --------------------------------------------------------
 
@@ -175,7 +177,8 @@ CREATE TABLE `user_course` (
 INSERT INTO `user_course` (`user_id`, `course_id`) VALUES
 (1, 1),
 (1, 3),
-(2, 2);
+(2, 2),
+(4, 2);
 
 --
 -- Indizes der exportierten Tabellen
@@ -272,7 +275,7 @@ ALTER TABLE `schedules`
 -- AUTO_INCREMENT für Tabelle `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- Constraints der exportierten Tabellen
