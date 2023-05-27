@@ -100,4 +100,8 @@ public class User {
     public Set<Course> getEnrolledCourses() {
         return enrolledCourses;
     }
+
+    public void setEnrolledCourses(Set<Course> enrolledCourses) {
+        this.enrolledCourses = enrolledCourses;
+    }
 }

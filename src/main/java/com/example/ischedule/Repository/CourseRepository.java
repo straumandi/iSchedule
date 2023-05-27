@@ -1,7 +1,6 @@
 package com.example.ischedule.Repository;
 
 import com.example.ischedule.Model.Course;
-import com.example.ischedule.Model.User;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
@@ -12,12 +11,10 @@ import java.util.List;
 @Repository
 public interface CourseRepository extends JpaRepository<Course, Integer> {
     /*
-     * Find all courses that belong to a user.
+     * Find all courses that belong to a user and eagerly fetch the enrolledUsers collection.
      */
-    @Query("SELECT c FROM Course c JOIN c.enrolledUsers u WHERE u.id = :userId")
+    @Query("SELECT DISTINCT c FROM Course c JOIN FETCH c.enrolledUsers u WHERE u.id = :userId")
     List<Course> getEnrolledCourses(@Param("userId") int userId);
-    /*@Query("SELECT c FROM Course c JOIN c.enrolledUsers u WHERE u = :user")
-    List<Course> getEnrolledCourses(@Param("user") User user);*/
 
 }
 

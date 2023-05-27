@@ -35,7 +35,6 @@ public class CourseServiceImpl implements CourseService {
 
     @Override
     public List<Course> getEnrolledCourses(int userId) {
-        System.out.println("Enrolled Courses: " + courseRepository.getEnrolledCourses(userId));
         return courseRepository.getEnrolledCourses(userId);
     }
 
@@ -64,19 +63,23 @@ public class CourseServiceImpl implements CourseService {
             // Make sure the user is persisted in the database
             User persistedUser = userRepository.save(user);
 
-            // Associate the persisted user with the course
+            // Associate the user with the course
             enrolledUsers.add(persistedUser);
+            enrolledCourse.setEnrolledUsers(enrolledUsers);
 
+            // Associate the course with the user
+            Set<Course> enrolledCourses = persistedUser.getEnrolledCourses();
+            enrolledCourses.add(enrolledCourse);
+            persistedUser.setEnrolledCourses(enrolledCourses);
+
+            // Save the updated entities
             courseRepository.save(enrolledCourse);
+            userRepository.save(persistedUser);
         } else {
             // TODO: Handle the case when the course is not found
             // TODO: Create global error Interceptor!
         }
     }
-
-
-
-
 
 }
 
