@@ -25,12 +25,12 @@ import java.util.Optional;
 @Controller
 public class HomeController {
 
-    private final UserService userService; // UserService to retrieve the authenticated user
+    private final UserService userService;
     private final CourseService courseService;
     private final PreferencesService preferencesService;
     private final RoomService roomService;
 
-    public HomeController(UserService userService, CourseService courseService, PreferencesService preferencesService, RoomService roomService) {
+    public HomeController(UserService userService, CourseService courseService, PreferencesService preferencesService, RoomService roomService, CourseController courseController) {
         this.userService = userService;
         this.courseService = courseService;
         this.preferencesService = preferencesService;
@@ -88,38 +88,27 @@ public class HomeController {
         courseService.enrollUserInCourse(user, course);
         return "redirect:/home";
     }
-/*
+
     @Transactional
-    @PostMapping("/savePreferences")
-    public String savePreferences(@RequestParam("startTime") Time startTime,
-                                  @RequestParam("endTime") Time endTime,
-                                  @RequestParam("room") int roomId,
-                                  Authentication authentication) {
-        // Get the authenticated user's username
-        String username = authentication.getName();
-
-        // Get the user by username
+    @PostMapping("/createPreferences")
+    public String createPreferences(Model model) {
+        // Logic to create an empty preferences object associated with the logged-in user
+        Preferences preferences = new Preferences();
+        // Set the logged-in user as the owner of the preferences object
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        String username = auth.getName();
         User user = userService.getUserByUsername(username);
+        preferences.setUser(user);
 
-        // Get the preferences for the user
-        Preferences preferences = preferencesService.getPreferencesByUserId(user.getId());
-
-        // Get the preferred room by ID
-        Room preferredRoom = roomService.getRoomById(roomId);
-
-        // Update the preferences
-        preferences.setPreferredStartTime(startTime);
-        preferences.setPreferredEndTime(endTime);
-        preferences.setPreferredRoom(preferredRoom);
-
-        // Save the updated preferences
+        // Save the preferences object to the database
         preferencesService.savePreferences(preferences);
 
+        // Add the preferences object to the model
+        model.addAttribute("preferences", preferences);
+
         return "redirect:/home";
-    }*/
+    }
 
-
-// ...
 
     @Transactional
     @PostMapping("/savePreferences")

@@ -59,8 +59,8 @@
         </table>
     </div>
     <!-- Student Actions -->
-    <div th:if="${isStudent}">
-        <h2>Student Actions</h2>
+    <div th:if="${isStudent or isAdmin}">
+        <h1 th:if="${isStudent}">Student Actions</h1>
         <!-- Student-specific actions (enroll) -->
         <h2>All Courses</h2>
         <table class="table">
@@ -69,7 +69,7 @@
                 <th>Course</th>
                 <th>Room</th>
                 <th>Time</th>
-                <th>Enroll</th>
+                <th th:if="${isStudent}">Enroll</th>
             </tr>
             </thead>
             <tbody>
@@ -78,7 +78,7 @@
                 <td th:text="${course.name}"></td>
                 <td th:text="${course.courseSchedule.room.name}"></td>
                 <td th:text="${course.courseSchedule.startTime} + ' - ' + ${course.courseSchedule.endTime}"></td>
-                <td>
+                <td th:if="${isStudent}">
                     <form th:action="@{/enroll}" method="post">
                         <input type="hidden" name="courseId" th:value="${course.id}"/>
                         <button type="submit" class="btn btn-primary">Enroll</button>
@@ -96,11 +96,27 @@
         <form th:action="@{/addCourse}" method="post">
             <h3>Add Course</h3>
             <!-- Course details inputs -->
-            <!-- ... -->
+            <div class="form-group">
+                <label for="courseName">Course Name:</label>
+                <input type="text" class="form-control" id="courseName" name="name" required>
+            </div>
+            <div class="form-group">
+                <label for="courseDescription">Course Description:</label>
+                <textarea class="form-control" id="courseDescription" name="description" required></textarea>
+            </div>
+            <div class="form-group">
+                <label for="courseInstructor">Course Instructor:</label>
+                <select class="form-control" id="courseInstructor" name="instructor.id" required>
+                    <!-- Iterate over instructors and populate options -->
+                    <option th:each="instructor : ${instructors}" th:value="${instructor.id}" th:text="${instructor.name}"></option>
+                </select>
+            </div>
+            <!-- Similar form fields for admin and enrolled users can be added if needed -->
             <button type="submit" class="btn btn-primary">Add</button>
         </form>
-        <!-- Other administrator actions -->
     </div>
+
+
 
     <!-- Administrator AND Assistant Actions -->
     <div th:if="${isAdmin or isAssistant}" class="preferences-box">
@@ -110,11 +126,12 @@
             <p><strong>Preferred End Time:</strong> <span th:text="${preferences.preferredEndTime}"></span></p>
             <p><strong>Preferred Room:</strong> <span th:text="${preferences.preferredRoom?.name}"></span></p>
             <p><strong>Preferred Day of Week:</strong> <span th:text="${preferences.preferredDayOfWeek}"></span></p>
-            <a th:href="@{/preferences/edit}" class="btn btn-primary">Edit Preferences</a>
         </div>
         <div th:unless="${preferences}">
             <p>No preferences set.</p>
-            <a th:href="@{/preferences/edit}" class="btn btn-primary">Set Preferences</a>
+            <form th:action="@{/createPreferences}" method="post">
+                <button type="submit" class="btn btn-primary">Set Preferences</button>
+            </form>
         </div>
     </div>
     <!-- Save/Edit preferences -->
