@@ -19,26 +19,23 @@
         border-radius: 4px;
         box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
     }
-
     .preferences-box h5 {
         margin-top: 0;
     }
-
     .preferences-box p {
         margin: 5px 0;
     }
-
     .preferences-box .btn {
         margin-top: 10px;
     }
 </style>
-<div class="container">
+<div class="container shadow p-3 mt-3 mb-5 rounded">
     <h1 class="mb-4">Welcome to iSchedule, <span th:text="${#authentication.principal.username}"></span>!</h1>
     <form action="/logout" method="post">
         <button type="submit" class="btn btn-secondary">Logout</button>
     </form>
     <!-- Personal Schedule -->
-    <div th:if="${isStudent}">
+    <div th:if="${isStudent}" class="shadow p-3 mt-3 mb-5 bg-white rounded">
         <h2>Your Personal Schedule</h2>
         <table class="table">
             <thead>
@@ -59,10 +56,10 @@
         </table>
     </div>
     <!-- Student Actions -->
-    <div th:if="${isStudent or isAdmin}">
+    <div th:if="${isStudent or isAdmin}" class="shadow p-3 mb-5 bg-white rounded">
         <h1 th:if="${isStudent}">Student Actions</h1>
         <!-- Student-specific actions (enroll) -->
-        <h2>All Courses</h2>
+        <h2 class="m-2">All Courses</h2>
         <table class="table">
             <thead>
             <tr>
@@ -107,16 +104,14 @@
             <div class="form-group">
                 <label for="courseInstructor">Course Instructor:</label>
                 <select class="form-control" id="courseInstructor" name="instructor.id" required>
-                    <!-- Iterate over instructors and populate options -->
-                    <option th:each="instructor : ${instructors}" th:value="${instructor.id}" th:text="${instructor.name}"></option>
+                    <!-- Iterate over admin and assistant users and populate options -->
+                    <option th:each="instructor : ${adminAndAssistantUsers}" th:value="${instructor.id}" th:text="${instructor.username}"></option>
                 </select>
             </div>
             <!-- Similar form fields for admin and enrolled users can be added if needed -->
             <button type="submit" class="btn btn-primary">Add</button>
         </form>
     </div>
-
-
 
     <!-- Administrator AND Assistant Actions -->
     <div th:if="${isAdmin or isAssistant}" class="preferences-box">
@@ -135,8 +130,8 @@
         </div>
     </div>
     <!-- Save/Edit preferences -->
-    <div th:if="${preferences}">
-        <h2 class="m-4">Set your Preferences:</h2>
+    <div th:if="${preferences}" class="shadow p-3 mt-5 mb-5 bg-white rounded">
+        <h2 class="mb-3">Set your Preferences:</h2>
         <form th:action="@{/savePreferences}" method="post" th:object="${preferences}">
             <div class="form-group">
                 <label for="startTime">Preferred Start Time:</label>

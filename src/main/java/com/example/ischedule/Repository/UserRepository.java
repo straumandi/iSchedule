@@ -1,6 +1,5 @@
 package com.example.ischedule.Repository;
 
-import com.example.ischedule.Model.Course;
 import com.example.ischedule.Model.User;
 import com.example.ischedule.Model.UserRole;
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -9,7 +8,6 @@ import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
-import java.util.Set;
 
 @Repository
 public interface UserRepository extends JpaRepository<User, Integer> {
@@ -27,6 +25,12 @@ public interface UserRepository extends JpaRepository<User, Integer> {
      * Find all users with a given role.
      */
     List<User> findByRole(UserRole role);
+
+    /*
+     * Find all users for multiple roles.
+     */
+    List<User> getUsersByRoleIn(List<UserRole> roles);
+
 
     /*
      * Find all users by course id.

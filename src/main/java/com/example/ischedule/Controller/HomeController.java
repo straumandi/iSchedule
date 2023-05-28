@@ -13,6 +13,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
@@ -67,6 +68,9 @@ public class HomeController {
         if (isAdmin || isAssistant) {
             preferences = preferencesService.getPreferencesByUserId(currentUser.getUser().getId());
             rooms = roomService.getAllRooms();
+            // Get all users with "admin" or "assistant" role
+            List<User> adminAndAssistantUsers = userService.getUsersByRoleIn(UserRole.ADMIN, UserRole.ASSISTANT);
+            model.addAttribute("adminAndAssistantUsers", adminAndAssistantUsers);
         }
         model.addAttribute("preferences", preferences);
         model.addAttribute("rooms", rooms);
@@ -76,6 +80,17 @@ public class HomeController {
         model.addAttribute("allCourses", allCourses);
 
         return "home";
+    }
+
+    @PostMapping("/addCourse")
+    public String addCourse(@ModelAttribute Course course) {
+        Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+        String username = auth.getName();
+        User instructor = userService.getUserByUsername(username);
+        course.setInstructor(instructor);
+
+        courseService.saveCourse(course);
+        return "redirect:/home";
     }
 
 
@@ -99,13 +114,10 @@ public class HomeController {
         String username = auth.getName();
         User user = userService.getUserByUsername(username);
         preferences.setUser(user);
-
         // Save the preferences object to the database
         preferencesService.savePreferences(preferences);
-
         // Add the preferences object to the model
         model.addAttribute("preferences", preferences);
-
         return "redirect:/home";
     }
 
@@ -119,29 +131,22 @@ public class HomeController {
                                   Authentication authentication) {
         // Get the authenticated user's username
         String username = authentication.getName();
-
         // Get the user by username
         User user = userService.getUserByUsername(username);
-
         // Get the preferences for the user
         Preferences preferences = preferencesService.getPreferencesByUserId(user.getId());
-
         // Get the preferred room by ID
         Room preferredRoom = roomService.getRoomById(roomId);
-
         // Convert the string values to LocalTime
         LocalTime startTime = LocalTime.parse(startTimeStr, DateTimeFormatter.ISO_LOCAL_TIME);
         LocalTime endTime = LocalTime.parse(endTimeStr, DateTimeFormatter.ISO_LOCAL_TIME);
-
         // Update the preferences
         preferences.setPreferredStartTime(Time.valueOf(startTime));
         preferences.setPreferredEndTime(Time.valueOf(endTime));
         preferences.setPreferredRoom(preferredRoom);
         preferences.setPreferredDayOfWeek(dayOfWeek);
-
         // Save the updated preferences
         preferencesService.savePreferences(preferences);
-
         return "redirect:/home";
     }
 

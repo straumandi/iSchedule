@@ -22,6 +22,7 @@ public interface UserService {
     List<User> getUsersByCourseId(int courseId);
 
     List<User> getUsersByRole(UserRole role);
+    List<User> getUsersByRoleIn(UserRole... roles);
 
     User updateUser(Integer id, User updatedUser);
 

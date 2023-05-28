@@ -3,12 +3,13 @@ package com.example.ischedule.Service.impl;
 import com.example.ischedule.Model.User;
 import com.example.ischedule.Model.UserRole;
 import com.example.ischedule.Repository.UserRepository;
-import com.example.ischedule.security.CustomUserDetails;
 import com.example.ischedule.Service.UserService;
+import com.example.ischedule.security.CustomUserDetails;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
+import java.util.Arrays;
 import java.util.List;
 import java.util.Optional;
 
@@ -58,6 +59,12 @@ public class UserServiceImpl implements UserService {
     @Override
     public List<User> getUsersByRole(UserRole role) {
         return userRepository.findByRole(role);
+    }
+
+    @Override
+    public List<User> getUsersByRoleIn(UserRole... roles) {
+        List<UserRole> roleList = Arrays.asList(roles);
+        return userRepository.getUsersByRoleIn(roleList);
     }
 
     @Override
