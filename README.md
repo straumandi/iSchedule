@@ -27,6 +27,7 @@ making it easy to keep track of class timings, room assignments, and student enr
   -     Login with Spring Security
   -     Registration with password encryption
   -     Modern UI
+  -     Database Schema --> (resources/images)
 
 ## Technologies Used
 
@@ -38,8 +39,8 @@ making it easy to keep track of class timings, room assignments, and student enr
 
 1. Clone the repository: `git clone https://github.com/straumandi/ischedule.git`
 2. Create a local database named 'ischedule' with username 'root' and no password.
-3. Import the ischedule.sql from the root of this repository into your local database.
-4. Build the project using your preferred IDE.
+3. (Optional: For quick start) Import the ischedule.sql from the root of this repository into your local database.
+4. Build the project using your preferred IDE. (project created with IntelliJ) 
 5. Run the application and access the iSchedule UI.
 
 ## Usage
