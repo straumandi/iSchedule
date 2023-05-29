@@ -5,7 +5,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Home - iSchedule</title>
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
-    <link rel="stylesheet" href="/css/home.css">
 </head>
 <body>
 <style>
@@ -19,12 +18,15 @@
         border-radius: 4px;
         box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
     }
+
     .preferences-box h5 {
         margin-top: 0;
     }
+
     .preferences-box p {
         margin: 5px 0;
     }
+
     .preferences-box .btn {
         margin-top: 10px;
     }
@@ -32,7 +34,7 @@
 <div class="container shadow p-3 mt-3 mb-5 rounded">
     <h1 class="mb-4">Welcome to iSchedule, <span th:text="${#authentication.principal.username}"></span>!</h1>
     <form action="/logout" method="post">
-        <button type="submit" class="btn btn-secondary">Logout</button>
+        <button type="submit" class="mb-3 btn btn-secondary">Logout</button>
     </form>
     <!-- Personal Schedule -->
     <div th:if="${isStudent}" class="shadow p-3 mt-3 mb-5 bg-white rounded">
@@ -55,10 +57,10 @@
             </tbody>
         </table>
     </div>
-    <!-- Student Actions -->
+    <!-- Student & Admin Actions -->
     <div th:if="${isStudent or isAdmin}" class="shadow p-3 mb-5 bg-white rounded">
         <h1 th:if="${isStudent}">Student Actions</h1>
-        <!-- Student-specific actions (enroll) -->
+        <h1 th:if="${isAdmin}">Admin Actions</h1>
         <h2 class="m-2">All Courses</h2>
         <table class="table">
             <thead>
@@ -67,6 +69,7 @@
                 <th>Room</th>
                 <th>Time</th>
                 <th th:if="${isStudent}">Enroll</th>
+                <th th:if="${isAdmin}">Delete</th>
             </tr>
             </thead>
             <tbody>
@@ -81,14 +84,19 @@
                         <button type="submit" class="btn btn-primary">Enroll</button>
                     </form>
                 </td>
+                <td th:if="${isAdmin}">
+                    <form th:action="@{/deleteCourse}" method="post">
+                        <input type="hidden" name="courseId" th:value="${course.id}"/>
+                        <button type="submit" class="btn btn-danger">Delete</button>
+                    </form>
+                </td>
             </tr>
             </tbody>
         </table>
     </div>
 
     <!-- Administrator Actions -->
-    <div th:if="${isAdmin}">
-        <h2>Administrator Actions</h2>
+    <div th:if="${isAdmin}" class="shadow p-3 mb-5 bg-white rounded">
         <!-- Add course form -->
         <form th:action="@{/addCourse}" method="post">
             <h3>Add Course</h3>
@@ -105,7 +113,8 @@
                 <label for="courseInstructor">Course Instructor:</label>
                 <select class="form-control" id="courseInstructor" name="instructorId" required>
                     <!-- Iterate over admin and assistant users and populate options -->
-                    <option th:each="instructor : ${adminAndAssistantUsers}" th:value="${instructor.id}" th:text="${instructor.username}"></option>
+                    <option th:each="instructor : ${adminAndAssistantUsers}" th:value="${instructor.id}"
+                            th:text="${instructor.username}"></option>
                 </select>
             </div>
             <div class="form-group">

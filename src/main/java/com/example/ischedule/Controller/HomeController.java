@@ -82,6 +82,14 @@ public class HomeController {
     }
 
     @Transactional
+    @PostMapping("/deleteCourse")
+    public String deleteCourse(@RequestParam("courseId") int courseId) {
+        courseService.deleteCourse(courseId);
+        return "redirect:/home";
+    }
+
+
+    @Transactional //make sure every step of the whole transaction process is successful, otherwise db remains unchanged
     @PostMapping("/addCourse")
     public String addCourse(@ModelAttribute Course course,
                             @RequestParam("instructorId") int instructorId,

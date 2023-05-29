@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Erstellungszeit: 29. Mai 2023 um 13:38
+-- Erstellungszeit: 29. Mai 2023 um 18:47
 -- Server-Version: 10.4.28-MariaDB
 -- PHP-Version: 8.2.4
 
@@ -43,7 +43,7 @@ INSERT INTO `courses` (`id`, `description`, `name`, `admin_id`, `instructor_id`)
 (1, 'Introduction to Programming', 'Programming 101', 3, 1),
 (2, 'Web Development Basics', 'Web Dev 101', 3, 2),
 (3, 'Database Management', 'DBMS', 3, 1),
-(5, 'java baby', 'Datastructures & Algorithms in Java', 3, 5);
+(13, 'YES BABY JAVA <3', 'Datastructures & Algorithms in Java', 3, 5);
 
 -- --------------------------------------------------------
 
@@ -69,7 +69,7 @@ INSERT INTO `course_schedule` (`id`, `day_of_week`, `end_time`, `start_time`, `c
 (1, 'MONDAY', '12:00:00', '10:00:00', 1, 1, 1),
 (2, 'WEDNESDAY', '14:00:00', '12:00:00', 2, 2, 2),
 (3, 'FRIDAY', '16:00:00', '14:00:00', 3, 3, 3),
-(4, 'MONDAY', '15:30:00', '13:30:00', 5, 3, NULL);
+(7, 'MONDAY', '09:30:00', '08:00:00', 13, 2, NULL);
 
 -- --------------------------------------------------------
 
@@ -91,8 +91,8 @@ CREATE TABLE `preferences` (
 --
 
 INSERT INTO `preferences` (`id`, `preferred_day_of_week`, `preferred_end_time`, `preferred_start_time`, `preferred_room_id`, `user_id`) VALUES
-(1, 'MONDAY', '18:00:00', '16:00:00', 2, 3),
-(2, 'THURSDAY', '16:00:00', '14:00:00', 1, 2),
+(1, 'MONDAY', '18:00:00', '16:00:00', 1, 3),
+(2, 'MONDAY', '17:00:00', '14:00:00', 2, 2),
 (3, 'FRIDAY', '18:00:00', '16:00:00', 2, 5);
 
 -- --------------------------------------------------------
@@ -180,7 +180,7 @@ CREATE TABLE `user_course` (
 INSERT INTO `user_course` (`user_id`, `course_id`) VALUES
 (1, 1),
 (1, 3),
-(2, 2),
+(1, 13),
 (4, 2);
 
 --
@@ -248,13 +248,13 @@ ALTER TABLE `user_course`
 -- AUTO_INCREMENT für Tabelle `courses`
 --
 ALTER TABLE `courses`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
 
 --
 -- AUTO_INCREMENT für Tabelle `course_schedule`
 --
 ALTER TABLE `course_schedule`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
 -- AUTO_INCREMENT für Tabelle `preferences`

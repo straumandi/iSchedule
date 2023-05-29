@@ -3,10 +3,8 @@ package com.example.ischedule.Service.impl;
 import com.example.ischedule.Model.Course;
 import com.example.ischedule.Model.User;
 import com.example.ischedule.Repository.CourseRepository;
-import com.example.ischedule.Repository.CourseScheduleRepository;
 import com.example.ischedule.Repository.UserRepository;
 import com.example.ischedule.Service.CourseService;
-import com.example.ischedule.Service.UserService;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -17,14 +15,10 @@ import java.util.Set;
 @Service
 public class CourseServiceImpl implements CourseService {
     private final CourseRepository courseRepository;
-    private final CourseScheduleRepository courseScheduleRepository;
-    private final UserService userService;
     private final UserRepository userRepository;
 
-    public CourseServiceImpl(CourseRepository courseRepository, CourseScheduleRepository courseScheduleRepository, UserService userService, UserRepository userRepository) {
+    public CourseServiceImpl(CourseRepository courseRepository, UserRepository userRepository) {
         this.courseRepository = courseRepository;
-        this.courseScheduleRepository = courseScheduleRepository;
-        this.userService = userService;
         this.userRepository = userRepository;
     }
 
@@ -50,7 +44,13 @@ public class CourseServiceImpl implements CourseService {
 
     @Override
     public void deleteCourse(int id) {
-        courseRepository.deleteById(id);
+        try {
+            courseRepository.deleteById(id);
+            System.out.println("Course deleted successfully. ID: " + id);
+        } catch (Exception e) {
+            System.out.println("Error deleting course with ID: " + id);
+            e.printStackTrace();
+        }
     }
 
     @Transactional

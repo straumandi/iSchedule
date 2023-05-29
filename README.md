@@ -14,11 +14,11 @@ of class timings, room assignments, and student enrollments.
 - Preferences: Allow admins and assistants to set their preferred start time, end time, and room.
 
 ## Implemented Features
-- User Management: Create user accounts with STUDENT role. (DB Admin can change role, user should not choose his role)
-- Enrollment Management: Enroll students in courses and track their enrollments.
-- Schedule Display: Display the schedule with course details, room assignments, and timings.
-- Preferences: Allow admins and assistants to set their preferred start time, end time, and room.
-- Admin Actions: Allow admins to create new courses.
+- User Management: **Create user accounts** with STUDENT role. (DB Admin can change role, user should not choose his role)
+- Enrollment Management: **Enroll** students in courses and track their enrollments.
+- Schedule Display: **Display the schedule** with course details, room assignments, and timings.
+- Preferences: Allow admins and assistants to **set and change** their preferences.
+- Admin Actions: Allow admins to **create and delete** new courses.
 
 ## Technologies Used
 
@@ -29,7 +29,7 @@ of class timings, room assignments, and student enrollments.
 ## Installation
 
 1. Clone the repository: `git clone https://github.com/straumandi/ischedule.git`
-2. Create local database named 'ischedule'.
+2. Create local database named 'ischedule', user:root, no password.
 3. Build the project using your preferred IDE.
 4. Run the application and access the iSchedule UI.
 
