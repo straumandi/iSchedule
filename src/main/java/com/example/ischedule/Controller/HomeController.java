@@ -1,10 +1,7 @@
 package com.example.ischedule.Controller;
 
 import com.example.ischedule.Model.*;
-import com.example.ischedule.Service.CourseService;
-import com.example.ischedule.Service.PreferencesService;
-import com.example.ischedule.Service.RoomService;
-import com.example.ischedule.Service.UserService;
+import com.example.ischedule.Service.*;
 import com.example.ischedule.security.CustomUserDetails;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -30,12 +27,14 @@ public class HomeController {
     private final CourseService courseService;
     private final PreferencesService preferencesService;
     private final RoomService roomService;
+    private final ScheduleService scheduleService;
 
-    public HomeController(UserService userService, CourseService courseService, PreferencesService preferencesService, RoomService roomService, CourseController courseController) {
+    public HomeController(UserService userService, CourseService courseService, PreferencesService preferencesService, RoomService roomService, CourseController courseController, ScheduleService scheduleService) {
         this.userService = userService;
         this.courseService = courseService;
         this.preferencesService = preferencesService;
         this.roomService = roomService;
+        this.scheduleService = scheduleService;
     }
 
     @GetMapping("/home")
@@ -82,17 +81,38 @@ public class HomeController {
         return "home";
     }
 
+    @Transactional
     @PostMapping("/addCourse")
-    public String addCourse(@ModelAttribute Course course) {
+    public String addCourse(@ModelAttribute Course course,
+                            @RequestParam("instructorId") int instructorId,
+                            @RequestParam("dayOfWeek") DayOfWeek dayOfWeek,
+                            @RequestParam("startTime") String startTimeStr,
+                            @RequestParam("endTime") String endTimeStr,
+                            @RequestParam("roomId") int roomId) {
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
-        String username = auth.getName();
-        User instructor = userService.getUserByUsername(username);
+        User admin = userService.getUserByUsername(auth.getName());
+        User instructor = userService.getUserById(instructorId);
         course.setInstructor(instructor);
+        course.setAdmin(admin);
+
+        CourseSchedule courseSchedule = new CourseSchedule();
+        courseSchedule.setCourse(course);
+        courseSchedule.setDayOfWeek(dayOfWeek);
+
+        // Convert the string values to LocalTime
+        LocalTime startTime = LocalTime.parse(startTimeStr, DateTimeFormatter.ISO_LOCAL_TIME);
+        LocalTime endTime = LocalTime.parse(endTimeStr, DateTimeFormatter.ISO_LOCAL_TIME);
+        courseSchedule.setStartTime(Time.valueOf(startTime));
+        courseSchedule.setEndTime(Time.valueOf(endTime));
+
+        Room room = roomService.getRoomById(roomId);
+        courseSchedule.setRoom(room);
+
+        course.setCourseSchedule(courseSchedule);
 
         courseService.saveCourse(course);
         return "redirect:/home";
     }
-
 
     @Transactional
     @PostMapping("/enroll")
@@ -121,7 +141,6 @@ public class HomeController {
         return "redirect:/home";
     }
 
-
     @Transactional
     @PostMapping("/savePreferences")
     public String savePreferences(@RequestParam("startTime") String startTimeStr,
@@ -129,23 +148,20 @@ public class HomeController {
                                   @RequestParam("room") int roomId,
                                   @RequestParam("dayOfWeek") DayOfWeek dayOfWeek,
                                   Authentication authentication) {
-        // Get the authenticated user's username
         String username = authentication.getName();
-        // Get the user by username
         User user = userService.getUserByUsername(username);
-        // Get the preferences for the user
         Preferences preferences = preferencesService.getPreferencesByUserId(user.getId());
-        // Get the preferred room by ID
         Room preferredRoom = roomService.getRoomById(roomId);
+
         // Convert the string values to LocalTime
         LocalTime startTime = LocalTime.parse(startTimeStr, DateTimeFormatter.ISO_LOCAL_TIME);
         LocalTime endTime = LocalTime.parse(endTimeStr, DateTimeFormatter.ISO_LOCAL_TIME);
-        // Update the preferences
+
+        // Update & save preferences
         preferences.setPreferredStartTime(Time.valueOf(startTime));
         preferences.setPreferredEndTime(Time.valueOf(endTime));
         preferences.setPreferredRoom(preferredRoom);
         preferences.setPreferredDayOfWeek(dayOfWeek);
-        // Save the updated preferences
         preferencesService.savePreferences(preferences);
         return "redirect:/home";
     }

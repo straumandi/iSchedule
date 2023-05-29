@@ -103,9 +103,34 @@
             </div>
             <div class="form-group">
                 <label for="courseInstructor">Course Instructor:</label>
-                <select class="form-control" id="courseInstructor" name="instructor.id" required>
+                <select class="form-control" id="courseInstructor" name="instructorId" required>
                     <!-- Iterate over admin and assistant users and populate options -->
                     <option th:each="instructor : ${adminAndAssistantUsers}" th:value="${instructor.id}" th:text="${instructor.username}"></option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="courseDayOfWeek">Day of Week:</label>
+                <select class="form-control" id="courseDayOfWeek" name="dayOfWeek" required>
+                    <option value="MONDAY">Monday</option>
+                    <option value="TUESDAY">Tuesday</option>
+                    <option value="WEDNESDAY">Wednesday</option>
+                    <option value="THURSDAY">Thursday</option>
+                    <option value="FRIDAY">Friday</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="courseStartTime">Start Time:</label>
+                <input type="time" class="form-control" id="courseStartTime" name="startTime" required>
+            </div>
+            <div class="form-group">
+                <label for="courseEndTime">End Time:</label>
+                <input type="time" class="form-control" id="courseEndTime" name="endTime" required>
+            </div>
+            <div class="form-group">
+                <label for="courseRoom">Room:</label>
+                <select class="form-control" id="courseRoom" name="roomId" required>
+                    <!-- Iterate over rooms and populate options -->
+                    <option th:each="room : ${rooms}" th:value="${room.id}" th:text="${room.name}"></option>
                 </select>
             </div>
             <!-- Similar form fields for admin and enrolled users can be added if needed -->
