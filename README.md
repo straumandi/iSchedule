@@ -18,6 +18,7 @@ of class timings, room assignments, and student enrollments.
 - Enrollment Management: Enroll students in courses and track their enrollments.
 - Schedule Display: Display the schedule with course details, room assignments, and timings.
 - Preferences: Allow admins and assistants to set their preferred start time, end time, and room.
+- Admin Actions: Allow admins to create new courses.
 
 ## Technologies Used
 
