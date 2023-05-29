@@ -2,8 +2,8 @@
 -- version 5.2.1
 -- https://www.phpmyadmin.net/
 --
--- Host: 127.0.0.1
--- Erstellungszeit: 29. Mai 2023 um 22:55
+-- Host: localhost
+-- Erstellungszeit: 29. Mai 2023 um 23:35
 -- Server-Version: 10.4.28-MariaDB
 -- PHP-Version: 8.2.4
 
@@ -89,8 +89,8 @@ CREATE TABLE `preferences` (
 --
 
 INSERT INTO `preferences` (`id`, `preferred_day_of_week`, `preferred_end_time`, `preferred_start_time`, `preferred_room_id`, `user_id`) VALUES
-(1, 'MONDAY', '18:00:00', '16:00:00', 1, 3),
-(2, 'MONDAY', '16:00:00', '14:00:00', 3, 2),
+(1, 'THURSDAY', '09:00:00', '06:00:00', 3, 3),
+(2, 'MONDAY', '17:00:00', '14:00:00', 3, 2),
 (3, 'FRIDAY', '18:00:00', '16:00:00', 2, 5);
 
 -- --------------------------------------------------------
@@ -247,19 +247,19 @@ ALTER TABLE `user_course`
 -- AUTO_INCREMENT für Tabelle `courses`
 --
 ALTER TABLE `courses`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=19;
 
 --
 -- AUTO_INCREMENT für Tabelle `course_schedule`
 --
 ALTER TABLE `course_schedule`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
 
 --
 -- AUTO_INCREMENT für Tabelle `preferences`
 --
 ALTER TABLE `preferences`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- AUTO_INCREMENT für Tabelle `rooms`

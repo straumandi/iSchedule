@@ -19,11 +19,9 @@ import org.springframework.security.web.authentication.AuthenticationFailureHand
 @EnableWebSecurity
 public class WebSecurityConfig extends WebSecurityConfiguration {
     private final CustomUserDetailsService userDetailsService;
-    private final CustomAuthenticationFailureHandler customAuthenticationFailureHandler;
 
-    public WebSecurityConfig(CustomUserDetailsService userDetailsService, CustomAuthenticationFailureHandler customAuthenticationFailureHandler) {
+    public WebSecurityConfig(CustomUserDetailsService userDetailsService) {
         this.userDetailsService = userDetailsService;
-        this.customAuthenticationFailureHandler = customAuthenticationFailureHandler;
     }
 
     @Bean
@@ -53,10 +51,6 @@ public class WebSecurityConfig extends WebSecurityConfiguration {
         return provider;
     }
 
-    private AuthenticationFailureHandler authenticationFailureHandler() {
-        return this.customAuthenticationFailureHandler;
-    }
-
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http
@@ -72,7 +66,6 @@ public class WebSecurityConfig extends WebSecurityConfiguration {
                 .formLogin((form) -> form
                         .loginPage("/login")
                         .failureUrl("/login?error=true") // Set the failure URL with the error parameter
-                        //.failureHandler(authenticationFailureHandler()) TODO: implement AuthenticationFailureHandler()
                         .defaultSuccessUrl("/home", true)
                         .permitAll()
                 )

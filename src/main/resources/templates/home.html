@@ -57,9 +57,9 @@
         </table>
     </div>
     <!-- Student & Admin Actions -->
+    <h1 th:if="${isAdmin}" class="mb-3 mt-3">Admin Actions</h1>
+    <h1 th:if="${isStudent}">Student Actions</h1>
     <div th:if="${isStudent or isAdmin}" class="shadow p-3 mb-5 bg-white rounded">
-        <h1 th:if="${isStudent}">Student Actions</h1>
-        <h1 th:if="${isAdmin}">Admin Actions</h1>
         <h2 class="m-2">All Courses</h2>
         <table class="table">
             <thead>
@@ -164,6 +164,7 @@
         </div>
     </div>
     <!-- Save/Edit preferences -->
+    <a id="editPreferences"></a>
     <div th:if="${preferences}" class="shadow p-3 mt-5 mb-5 bg-white rounded">
         <h2 class="mb-3">Set your Preferences:</h2>
         <form th:action="@{/savePreferences}" method="post" th:object="${preferences}">

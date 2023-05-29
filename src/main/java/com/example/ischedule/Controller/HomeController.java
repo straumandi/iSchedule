@@ -182,7 +182,7 @@ public class HomeController {
         preferencesService.savePreferences(preferences);
 
         redirectAttributes.addFlashAttribute("successMessage", "Preferences saved successfully!");
-        return "redirect:/home";
+        return "redirect:/home#editPreferences";
     }
 }
 
