@@ -23,11 +23,10 @@ making it easy to keep track of class timings, room assignments, and student enr
 - **Schedule Display:** Display the schedule with course details, room assignments, and timings.
 - **Preferences:** Allow admins and assistants to set and change their preferences.
 - **Admin Actions:** Allow admins to create and delete new courses.
-- **Additional Features:** 
-  -     Login with Spring Security
-  -     Registration with password encryption
-  -     Modern UI
-  -     Database Schema --> (resources/images)
+- **Additional to required features:** 
+  -    Login with Spring Security
+  -    Registration with password encryption
+  -    Modern UI
 
 ## Technologies Used
 
