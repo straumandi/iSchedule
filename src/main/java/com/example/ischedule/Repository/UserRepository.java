@@ -31,7 +31,6 @@ public interface UserRepository extends JpaRepository<User, Integer> {
      */
     List<User> getUsersByRoleIn(List<UserRole> roles);
 
-
     /*
      * Find all users by course id.
      */
@@ -42,6 +41,4 @@ public interface UserRepository extends JpaRepository<User, Integer> {
      * Find all users.
      */
     List<User> findAll();
-
-    //Set<Course> getEnrolledCoursesByUser(User user);
 }

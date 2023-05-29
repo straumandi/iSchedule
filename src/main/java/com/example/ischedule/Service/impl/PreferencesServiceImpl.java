@@ -19,7 +19,7 @@ public class PreferencesServiceImpl implements PreferencesService {
     }
 
     @Override
-    public Preferences savePreferences(Preferences preferences) {
-        return preferencesRepository.save(preferences);
+    public void savePreferences(Preferences preferences) {
+        preferencesRepository.save(preferences);
     }
 }

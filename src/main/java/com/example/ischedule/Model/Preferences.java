@@ -12,7 +12,7 @@ public class Preferences {
     @Column(name = "id")
     private int id;
 
-    @ManyToOne(cascade = CascadeType.REMOVE) //REMOVE
+    @ManyToOne(cascade = CascadeType.REMOVE)
     @JoinColumn(name = "user_id")
     private User user;
 

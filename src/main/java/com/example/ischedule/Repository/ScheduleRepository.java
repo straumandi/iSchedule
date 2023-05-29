@@ -8,7 +8,6 @@ import java.util.List;
 
 @Repository
 public interface ScheduleRepository extends JpaRepository<Schedule, Integer> {
-
     /*
      * Find the schedule associated with a given user ID.
      */
@@ -18,9 +17,4 @@ public interface ScheduleRepository extends JpaRepository<Schedule, Integer> {
      * Find all schedules for a given week number.
      */
     List<Schedule> findByWeekNumber(Integer weekNumber);
-
-    /*
-     * Find the schedule associated with a given course schedule.
-     */
-    //List<Schedule> findByCourseSchedule(CourseSchedule courseSchedule);
 }

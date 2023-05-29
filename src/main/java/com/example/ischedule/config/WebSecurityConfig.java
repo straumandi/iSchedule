@@ -1,7 +1,7 @@
 package com.example.ischedule.config;
 
-import com.example.ischedule.security.CustomUserDetailsService;
 import com.example.ischedule.handler.CustomAuthenticationFailureHandler;
+import com.example.ischedule.security.CustomUserDetailsService;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationProvider;
@@ -18,7 +18,6 @@ import org.springframework.security.web.authentication.AuthenticationFailureHand
 @Configuration
 @EnableWebSecurity
 public class WebSecurityConfig extends WebSecurityConfiguration {
-
     private final CustomUserDetailsService userDetailsService;
     private final CustomAuthenticationFailureHandler customAuthenticationFailureHandler;
 
@@ -35,13 +34,16 @@ public class WebSecurityConfig extends WebSecurityConfiguration {
     /*
      * By ignoring these requests, Spring Security will not apply any security measures to them,
      * allowing them to be accessed without authentication or authorization.
+     * Implemented only for educating purposes.
      */
     @Bean
     public WebSecurityCustomizer webSecurityCustomizer() {
         return (web) -> web.ignoring().requestMatchers("/js/**", "/images/**");
     }
 
-    //configure AuthenticationProvider, which provides the CustomUserDetails of a authenticated User
+    /*
+     * Configure AuthenticationProvider, which provides the CustomUserDetails of a authenticated User.
+     */
     @Bean
     AuthenticationProvider authenticationProvider() {
         DaoAuthenticationProvider provider = new DaoAuthenticationProvider();
@@ -58,7 +60,6 @@ public class WebSecurityConfig extends WebSecurityConfiguration {
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http
-                //https://www.ionos.at/digitalguide/server/sicherheit/was-ist-cross-site-request-forgery/
                 .csrf()
                 .disable()
                 .authenticationProvider(authenticationProvider())
@@ -70,8 +71,8 @@ public class WebSecurityConfig extends WebSecurityConfiguration {
                 )
                 .formLogin((form) -> form
                         .loginPage("/login")
-                        .failureUrl("/login?error")
-                        .failureHandler(authenticationFailureHandler())
+                        .failureUrl("/login?error=true") // Set the failure URL with the error parameter
+                        //.failureHandler(authenticationFailureHandler()) TODO: implement AuthenticationFailureHandler()
                         .defaultSuccessUrl("/home", true)
                         .permitAll()
                 )
@@ -81,7 +82,6 @@ public class WebSecurityConfig extends WebSecurityConfiguration {
                         .invalidateHttpSession(true)
                         .deleteCookies("JSESSIONID")
                 );
-
         return http.build();
     }
 }

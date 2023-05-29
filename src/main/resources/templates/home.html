@@ -18,15 +18,12 @@
         border-radius: 4px;
         box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
     }
-
     .preferences-box h5 {
         margin-top: 0;
     }
-
     .preferences-box p {
         margin: 5px 0;
     }
-
     .preferences-box .btn {
         margin-top: 10px;
     }
@@ -43,6 +40,7 @@
             <thead>
             <tr>
                 <th>Course</th>
+                <th>Day</th>
                 <th>Room</th>
                 <th>Time</th>
             </tr>
@@ -51,6 +49,7 @@
             <!-- Iterate over the courses enrolled by the student -->
             <tr th:each="course : ${enrolledCourses}">
                 <td th:text="${course.name}"></td>
+                <td th:text="${course.courseSchedule.dayOfWeek}"></td>
                 <td th:text="${course.courseSchedule.room.name}"></td>
                 <td th:text="${course.courseSchedule.startTime} + ' - ' + ${course.courseSchedule.endTime}"></td>
             </tr>
@@ -66,6 +65,7 @@
             <thead>
             <tr>
                 <th>Course</th>
+                <th>Day</th>
                 <th>Room</th>
                 <th>Time</th>
                 <th th:if="${isStudent}">Enroll</th>
@@ -76,6 +76,7 @@
             <!-- Iterate over all courses -->
             <tr th:each="course : ${allCourses}">
                 <td th:text="${course.name}"></td>
+                <td th:text="${course.courseSchedule.dayOfWeek}"></td>
                 <td th:text="${course.courseSchedule.room.name}"></td>
                 <td th:text="${course.courseSchedule.startTime} + ' - ' + ${course.courseSchedule.endTime}"></td>
                 <td th:if="${isStudent}">
@@ -94,7 +95,6 @@
             </tbody>
         </table>
     </div>
-
     <!-- Administrator Actions -->
     <div th:if="${isAdmin}" class="shadow p-3 mb-5 bg-white rounded">
         <!-- Add course form -->
@@ -146,8 +146,7 @@
             <button type="submit" class="btn btn-primary">Add</button>
         </form>
     </div>
-
-    <!-- Administrator AND Assistant Actions -->
+    <!-- Administrator AND Assistant Actions: -->
     <div th:if="${isAdmin or isAssistant}" class="preferences-box">
         <h5>Your Preferences:</h5>
         <div th:if="${preferences}">
@@ -156,6 +155,7 @@
             <p><strong>Preferred Room:</strong> <span th:text="${preferences.preferredRoom?.name}"></span></p>
             <p><strong>Preferred Day of Week:</strong> <span th:text="${preferences.preferredDayOfWeek}"></span></p>
         </div>
+        <!-- Set Preferences -->
         <div th:unless="${preferences}">
             <p>No preferences set.</p>
             <form th:action="@{/createPreferences}" method="post">
@@ -193,6 +193,9 @@
                             th:value="${day}" th:text="${day}"
                             th:selected="${day == preferences?.preferredDayOfWeek}"></option>
                 </select>
+            </div>
+            <div th:if="${successMessage}" class="alert alert-success mt-3" role="alert">
+                <span th:text="${successMessage}"></span>
             </div>
             <button type="submit" class="btn btn-primary">Save Preferences</button>
         </form>

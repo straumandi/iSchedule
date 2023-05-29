@@ -8,7 +8,6 @@ import java.util.Set;
 @Entity
 @Table(name = "courses")
 public class Course {
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
@@ -30,10 +29,6 @@ public class Course {
     @ManyToMany(mappedBy = "enrolledCourses", cascade=CascadeType.PERSIST)
     private Set<User> enrolledUsers = new HashSet<>();
 
-    /*
-     * When the fetch type is set to eager, the associated entities are loaded immediately along with the owning entity.
-     * It means that all related entities will be fetched from the database in a single query,
-     * reducing the need for additional database access when accessing the associated entities.  */
     @OneToOne(mappedBy = "course", fetch = FetchType.EAGER, cascade=CascadeType.ALL)
     private CourseSchedule courseSchedule;
 

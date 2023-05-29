@@ -22,15 +22,14 @@ public interface UserService {
     List<User> getUsersByCourseId(int courseId);
 
     List<User> getUsersByRole(UserRole role);
+
     List<User> getUsersByRoleIn(UserRole... roles);
 
-    User updateUser(Integer id, User updatedUser);
+    void updateUser(Integer id, User updatedUser);
 
     /*
-     * Eagerly fetch the enrolledCourses collection.
-     * This ensures that the User entity retrieved from the database
-     * contains the enrolled courses
-     * and remains attached to the persistence context.
+     * Retrieves a user by their username and eagerly fetches the enrolledCourses collection.
+     * Improves performance by loading the User entity and enrolledCourses collection in a single query.
      */
     @EntityGraph(attributePaths = "enrolledCourses")
     User getUserByUsername(String username);

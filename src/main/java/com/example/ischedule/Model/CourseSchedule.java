@@ -7,7 +7,6 @@ import java.sql.Time;
 @Entity
 @Table(name = "course_schedule")
 public class CourseSchedule {
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;

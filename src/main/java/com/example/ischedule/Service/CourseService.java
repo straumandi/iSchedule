@@ -8,10 +8,15 @@ import java.util.Optional;
 
 public interface CourseService {
     List<Course> getAllCourses();
-    List<Course>getEnrolledCourses(int userId);
+
+    List<Course> getEnrolledCourses(int userId);
+
     Optional<Course> getCourseById(int id);
+
     void saveCourse(Course course);
+
     void deleteCourse(int id);
+
     void enrollUserInCourse(User user, Optional<Course> course);
 }
 

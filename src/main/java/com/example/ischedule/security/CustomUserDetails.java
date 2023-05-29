@@ -16,14 +16,18 @@ import java.util.Collections;
 
 @Component
 public class CustomUserDetails implements UserDetails {
-
-    private User user;
+    private final User user;
 
     public CustomUserDetails(User user) {
         super();
         this.user = user;
     }
 
+    /**
+     * Retrieves the user's authorities (roles) for authentication and authorization.
+     * Adds the "ROLE_" prefix to the role name as per Spring Security conventions.
+     * @return Collection of user's authorities.
+     */
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         String authority = "ROLE_" + user.getRole().name();

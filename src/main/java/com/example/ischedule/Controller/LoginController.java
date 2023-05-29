@@ -1,15 +1,19 @@
 package com.example.ischedule.Controller;
 
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+
 
 @Controller
 public class LoginController {
-    //TODO: if user is logged in --> redirect:/home
-
     @GetMapping("/login")
-    public String showLoginPage() {
+    public String showLoginPage(@RequestParam(value = "error", required = false) String error, Model model) {
+        if (error != null) {
+            model.addAttribute("error", true);
+        }
         return "login";
     }
 
@@ -17,5 +21,6 @@ public class LoginController {
     public String handleSuccessfulLogin() {
         return "redirect:/home";
     }
+    //TODO: if user is logged in --> redirect:/home
 }
 

@@ -8,7 +8,6 @@ import java.util.List;
 @Entity
 @Table(name = "schedules")
 public class Schedule {
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
@@ -21,8 +20,8 @@ public class Schedule {
     private int weekNumber;
 
     /*
-     * The `CascadeType.ALL` property on the `@OneToMany` annotation means that when a `Schedule` entity
-     * is persisted, updated, or deleted, the corresponding `CourseSchedule` entities in the `courseSchedules`
+     * The CascadeType.ALL property on the @OneToMany annotation means that when a Schedule entity
+     * is persisted, updated, or deleted, the corresponding CourseSchedule entities in the courseSchedules
      * list will also be persisted, updated, or deleted automatically. This saves you from having to manually
      * manage the persistence of the related entities and ensures data consistency.
      */

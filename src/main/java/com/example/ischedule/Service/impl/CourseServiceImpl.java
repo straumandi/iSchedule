@@ -24,7 +24,7 @@ public class CourseServiceImpl implements CourseService {
 
     @Override
     public List<Course> getAllCourses() {
-       return courseRepository.findAll();
+        return courseRepository.findAll();
     }
 
     @Override
@@ -75,11 +75,7 @@ public class CourseServiceImpl implements CourseService {
             // Save the updated entities
             courseRepository.save(enrolledCourse);
             userRepository.save(persistedUser);
-        } else {
-            // TODO: Handle the case when the course is not found
-            // TODO: Create global error Interceptor!
         }
     }
-
 }
 

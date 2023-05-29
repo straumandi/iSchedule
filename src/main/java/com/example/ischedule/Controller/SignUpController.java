@@ -32,14 +32,11 @@ public class SignUpController {
             @RequestParam("username") String username,
             @RequestParam("password") String password,
             Model model) {
-
         try {
             // TODO: Validate the form data and perform any necessary checks
-
             String encodedPassword = passwordEncoder.encode(password);
             com.example.ischedule.Model.User newUser = new User(username, email, encodedPassword, UserRole.STUDENT);
             userService.saveUser(newUser);
-
             // Redirect the user to the home page after successful sign-up
             return "redirect:/home";
         } catch (ConstraintViolationException ex) {
@@ -47,9 +44,7 @@ public class SignUpController {
             model.addAttribute("error", errorMessage);
             return "signup";
         }
-
         //TODO: Login the newly registered user and redirect:/home
-
     }
 }
 

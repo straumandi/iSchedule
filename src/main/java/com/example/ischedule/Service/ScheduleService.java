@@ -6,8 +6,11 @@ import java.util.List;
 
 public interface ScheduleService {
     Schedule getScheduleById(int scheduleId);
+
     List<Schedule> getAllSchedules();
+
     void saveSchedule(Schedule schedule);
+
     void deleteScheduleById(int scheduleId);
 }
 

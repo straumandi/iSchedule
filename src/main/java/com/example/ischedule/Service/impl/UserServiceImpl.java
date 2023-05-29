@@ -15,7 +15,6 @@ import java.util.Optional;
 
 @Service
 public class UserServiceImpl implements UserService {
-
     private final UserRepository userRepository;
 
     public UserServiceImpl(UserRepository userRepository) {
@@ -37,7 +36,7 @@ public class UserServiceImpl implements UserService {
     public CustomUserDetails getCurrentUser() {
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
         String username = authentication.getName();
-        User user = userRepository.findByUsername(username); // Modify this line based on your UserRepository implementation
+        User user = userRepository.findByUsername(username);
         return new CustomUserDetails(user);
     }
 
@@ -68,24 +67,21 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public User updateUser(Integer id, User updatedUser) {
+    public void updateUser(Integer id, User updatedUser) {
         User user = userRepository.findById(id).orElse(null);
-
         if (user == null) {
-            return null;
+            return;
         }
-
         user.setUsername(updatedUser.getUsername());
         user.setEmail(updatedUser.getEmail());
         user.setPassword(updatedUser.getPassword());
         user.setRole(updatedUser.getRole());
-        return userRepository.save(user);
+        userRepository.save(user);
     }
 
     @Override
     public User getUserByUsername(String username) {
         return userRepository.findByUsername(username);
     }
-
 }
 

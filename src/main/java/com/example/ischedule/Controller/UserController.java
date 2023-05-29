@@ -7,10 +7,14 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
+/*
+ * Controller responsible for managing user-related operations.
+ * Handles user listing, creation, retrieval, updating, and deletion.
+ * Currently not used, mplemented for future use.
+ */
 @Controller
 @RequestMapping("/users")
 public class UserController {
-
     private final UserService userService;
 
     public UserController(UserService userService) {
@@ -36,12 +40,6 @@ public class UserController {
         User user = new User();
         model.addAttribute("user", user);
         return "users/new";
-    }
-
-    @PostMapping("")
-    public String createUser(@ModelAttribute("user") User user) {
-        userService.saveUser(user);
-        return "redirect:/users";
     }
 
     @GetMapping("/{id}/edit")

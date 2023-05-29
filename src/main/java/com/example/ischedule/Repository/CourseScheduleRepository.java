@@ -9,7 +9,7 @@ import java.sql.Time;
 import java.util.List;
 
 @Repository
-public interface CourseScheduleRepository extends JpaRepository<CourseSchedule, Long> {
+public interface CourseScheduleRepository extends JpaRepository<CourseSchedule, Integer> {
     /*
      * Find all course schedules for a specific course.
      */
