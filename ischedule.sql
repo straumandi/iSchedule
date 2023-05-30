@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost
--- Erstellungszeit: 29. Mai 2023 um 23:35
+-- Erstellungszeit: 30. Mai 2023 um 13:19
 -- Server-Version: 10.4.28-MariaDB
 -- PHP-Version: 8.2.4
 
@@ -40,7 +40,6 @@ CREATE TABLE `courses` (
 --
 
 INSERT INTO `courses` (`id`, `description`, `name`, `admin_id`, `instructor_id`) VALUES
-(1, 'Introduction to Programming', 'Programming 101', 3, 1),
 (2, 'Web Development Basics', 'Web Dev 101', 3, 2),
 (3, 'Database Management', 'DBMS', 3, 1);
 
@@ -65,7 +64,6 @@ CREATE TABLE `course_schedule` (
 --
 
 INSERT INTO `course_schedule` (`id`, `day_of_week`, `end_time`, `start_time`, `course_id`, `room_id`, `schedule_id`) VALUES
-(1, 'MONDAY', '12:00:00', '10:00:00', 1, 1, 1),
 (2, 'WEDNESDAY', '14:00:00', '12:00:00', 2, 2, 2),
 (3, 'FRIDAY', '16:00:00', '14:00:00', 3, 3, 3);
 
@@ -90,8 +88,9 @@ CREATE TABLE `preferences` (
 
 INSERT INTO `preferences` (`id`, `preferred_day_of_week`, `preferred_end_time`, `preferred_start_time`, `preferred_room_id`, `user_id`) VALUES
 (1, 'THURSDAY', '09:00:00', '06:00:00', 3, 3),
-(2, 'MONDAY', '17:00:00', '14:00:00', 3, 2),
-(3, 'FRIDAY', '18:00:00', '16:00:00', 2, 5);
+(2, 'MONDAY', '18:00:00', '14:00:00', 3, 2),
+(3, 'FRIDAY', '18:00:00', '16:00:00', 2, 5),
+(7, NULL, NULL, NULL, NULL, 6);
 
 -- --------------------------------------------------------
 
@@ -159,7 +158,8 @@ INSERT INTO `users` (`id`, `email`, `password`, `role`, `username`) VALUES
 (3, 'admin@example.com', '$2y$12$qZBG.TiVcPJrWW7wZL2zOu988sfqASQ2BAfk2mEkb1FkwnzJSzm2W', 'ADMIN', 'admin'),
 (4, 'peter@mail.com', '$2a$10$0uve.87p35T1wmemeBiCre0I.OtZG1nAhiGWD0K3z9sjXV06/D3Ga', 'STUDENT', 'peter'),
 (5, 'max@muster.at', '$2a$10$eX7XQgPigHXudUZ8X48bCuSBq2LZbTaIyGX2ZodKB4GhCrItjxc8C', 'ASSISTANT', 'max'),
-(6, 'heinzi@mail.com', '$2a$10$gx/bLRZLb4MwZirmTg06WOPZGMbXXoMVFCM55qZ0nOUgD.2R6jgMi', 'ASSISTANT', 'heinzi');
+(6, 'heinzi@mail.com', '$2a$10$gx/bLRZLb4MwZirmTg06WOPZGMbXXoMVFCM55qZ0nOUgD.2R6jgMi', 'ASSISTANT', 'heinzi'),
+(7, 'kasperl@yolo.at', '$2a$10$O5I7H7J3EnA94pfWrMUiKuXgEIbATUrqatkWDKbrMmPlrbifAbJpW', 'STUDENT', 'kasperl');
 
 -- --------------------------------------------------------
 
@@ -177,9 +177,7 @@ CREATE TABLE `user_course` (
 --
 
 INSERT INTO `user_course` (`user_id`, `course_id`) VALUES
-(1, 1),
 (1, 3),
-(4, 1),
 (4, 2);
 
 --
@@ -247,19 +245,19 @@ ALTER TABLE `user_course`
 -- AUTO_INCREMENT für Tabelle `courses`
 --
 ALTER TABLE `courses`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=19;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=20;
 
 --
 -- AUTO_INCREMENT für Tabelle `course_schedule`
 --
 ALTER TABLE `course_schedule`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=14;
 
 --
 -- AUTO_INCREMENT für Tabelle `preferences`
 --
 ALTER TABLE `preferences`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
 -- AUTO_INCREMENT für Tabelle `rooms`
@@ -277,7 +275,7 @@ ALTER TABLE `schedules`
 -- AUTO_INCREMENT für Tabelle `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 
 --
 -- Constraints der exportierten Tabellen

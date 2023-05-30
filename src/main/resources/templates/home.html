@@ -129,11 +129,11 @@
             </div>
             <div class="form-group">
                 <label for="courseStartTime">Start Time:</label>
-                <input type="time" class="form-control" id="courseStartTime" name="startTime" required>
+                <input type="time" class="form-control" id="courseStartTime" name="startTime" required min="08:00" max="22:45">
             </div>
             <div class="form-group">
                 <label for="courseEndTime">End Time:</label>
-                <input type="time" class="form-control" id="courseEndTime" name="endTime" required>
+                <input type="time" class="form-control" id="courseEndTime" name="endTime" required min="08:45" max="23:00">
             </div>
             <div class="form-group">
                 <label for="courseRoom">Room:</label>
@@ -171,12 +171,12 @@
             <div class="form-group">
                 <label for="startTime">Preferred Start Time:</label>
                 <input type="time" class="form-control" id="startTime" name="startTime"
-                       th:value="${preferences != null ? preferences.preferredStartTime : ''}" required>
+                       th:value="${preferences != null ? preferences.preferredStartTime : ''}" required min="08:00" max="22:45">
             </div>
             <div class="form-group">
                 <label for="endTime">Preferred End Time:</label>
                 <input type="time" class="form-control" id="endTime" name="endTime"
-                       th:value="${preferences != null ? preferences.preferredEndTime : ''}" required>
+                       th:value="${preferences != null ? preferences.preferredEndTime : ''}" required min="08:45" max="23:00">
             </div>
             <div class="form-group">
                 <label for="room">Preferred Room:</label>
